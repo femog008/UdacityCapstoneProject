@@ -10,14 +10,13 @@ stages:
     steps:
     - task: InstallSSHKey@0
       inputs:
-        knownHostsEntry: '$(KNOWN_HOST_STRING)'
-        sshPublicKey: '$(PUBLIC_KEY)'
+        knownHostsEntry: 'AAAAB3NzaC1yc2EAAAABIwAAAQEAq2A7hRGmdnm9tUDbO9IDSwBK6TbQa+PXYPCPy6rbTrTtw7PHkccKrpp0yVhp5HdEIcKr6pLlVDBfOLX9QUsyCOV0wzfjIJNlGEYsdlLJizHhbn2mUjvSAHQqZETYP81eFzLQNnPHt4EVVUh7VfDESU84KezmD5QlWpXLmvU31/yMf+Se8xhHTvKSCZIFImWwoG6mbUoWf9nzpIoaSjB+weqqUUmpaaasXVal72J+UX2B+2RPW3RcT0eOzQgqlJL3RKrTJvdsjE3JEAvGq3lGHSZXy28G3skua2SmVi/w4yCE6gbODqnTWlg7+wC604ydGXA8VJiS5ap43JXiUFFAaQ=='
+        sshPublicKey: 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDj7vOSgVPZGdvhiEOhucnOTRQFH7h2yRX5gPgTQam/DbOOFqnDnK9JxqsDL8+/PbmH1xhpXsVn9bHqEhJ3GSCf2VYYCLWB98GAQri+dznfE6Eeity4xsxdBH0fKdXxhDNP9P6VtmWqyHeqMRDOjKZcUK0m8DZV4thytwr23LVIomwV7okqwWq31r/e+Jhsxr9skI+F7ymEF0doq+S9jhMAoEvQ8gV9vxgw3rDmW0DYXL2uyskXDhYXMBX4TEDjb8952VmygRGjLQHqdwolULkl1M54yDfMmS622o7L7G+l2hv1KspD4K2GVNjTfea2urHGWTUTVMCqlWxSwHGwfP0F olufemi@cc-eff50202-6d9f89db5c-mnk8k'
         sshKeySecureFile: 'id_rsa'
-
     - task: ArchiveFiles@2
       displayName: 'Archive FakeRestAPI'
       inputs:
-        rootFolderOrFile: 'path/to/fakerestapi'
+        rootFolderOrFile: 'automatedtesting/jmeter/fakerestapi'
         includeRootFolder: false
         archiveType: 'zip'
         archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip'
@@ -37,8 +36,8 @@ stages:
           - task: AzureWebApp@1
             displayName: 'Deploy Azure Web App'
             inputs:
-              azureSubscription: ''
-              appName: ''
+              azureSubscription: 'd3dd2baf-a0bf-4ef2-a51f-0582cb545799'
+              appName: 'uda-fake-rest-api'
               appType: webApp
               package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
   # - deployment: VMDeploy
