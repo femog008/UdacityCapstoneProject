@@ -10,8 +10,8 @@ stages:
     steps:
     - task: InstallSSHKey@0
       inputs:
-        knownHostsEntry: 'KNOWN_HOSTS_STRING'
-        sshPublicKey: 'PUBLIC_KEY'
+        knownHostsEntry: '$(KNOWN_HOST_STRING)'
+        sshPublicKey: '$(PUBLIC_KEY)'
         sshKeySecureFile: 'id_rsa'
 
     - task: ArchiveFiles@2
