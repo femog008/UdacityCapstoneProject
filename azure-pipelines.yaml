@@ -13,6 +13,13 @@ stages:
         knownHostsEntry: '$(KNOWN_HOST_STRING)'
         sshPublicKey: '$(PUBLIC_KEY)'
         sshKeySecureFile: 'id_rsa'
+    - task: TerraformInstaller@0
+      inputs:
+        terraformVersion: '0.13.2'
+    - task: TerraformTaskV1@0
+      inputs:
+        provider: 'azurerm'
+        command: 'init'
     - task: ArchiveFiles@2
       displayName: 'Archive FakeRestAPI'
       inputs:
