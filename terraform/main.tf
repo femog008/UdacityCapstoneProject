@@ -8,9 +8,9 @@ provider "azurerm" {
 terraform {
   backend "azurerm" {
     storage_account_name = "udaterrasa"
-    container_name       = "teracontainer"
+    container_name       = "terracontainer"
     key                  = "uda.terraform.tfstate"
-    access_key           = "JMfVloz+7H8z5kzReDBy1ckAh4W/UQO0Rq+W96UTrA67veB3WuE8gBYU0JKs+AM68PXCJgOwy+/X7aQmhEBrJw=="
+    access_key           = "Nzd5N7Mtv1U9kCVgEd1QN+z5A0mTuFNqQVl7FjurJVGUsKK7Jf4zJ6wy10T0zqIfrg7f33HzqpwzUCc1XIeuFQ=="
   }
 }
 module "resource_group" {
