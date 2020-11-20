@@ -26,12 +26,14 @@ stages:
         backendAzureRmStorageAccountName: 'udaterrasa'
         backendAzureRmContainerName: 'terracontainer'
         backendAzureRmKey: 'uda.terraform.tfstate'
+        workingDirectory: 'terraform'
     - task: TerraformTaskV1@0
       displayName: 'validate and apply'
       inputs:
         provider: 'azurerm'
         command: 'apply'
         environmentServiceNameAzureRM: 'UdacityQARelease'
+        workingDirectory: 'terraform'
     - task: ArchiveFiles@2
       displayName: 'Archive FakeRestAPI'
       inputs:
