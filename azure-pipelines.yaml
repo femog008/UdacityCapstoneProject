@@ -17,9 +17,21 @@ stages:
       inputs:
         terraformVersion: '0.13.2'
     - task: TerraformTaskV1@0
+      displayName: Init
       inputs:
         provider: 'azurerm'
         command: 'init'
+        backendServiceArm: 'UdacityQARelease'
+        backendAzureRmResourceGroupName: 'uda-vault-rg'
+        backendAzureRmStorageAccountName: 'udaterrasa'
+        backendAzureRmContainerName: 'terracontainer'
+        backendAzureRmKey: 'uda.terraform.tfstate'
+    - task: TerraformTaskV1@0
+      displayName: 'validate and apply'
+      inputs:
+        provider: 'azurerm'
+        command: 'apply'
+        environmentServiceNameAzureRM: 'UdacityQARelease'
     - task: ArchiveFiles@2
       displayName: 'Archive FakeRestAPI'
       inputs:
@@ -30,7 +42,7 @@ stages:
     - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip
       displayName: 'Upload Package'
       artifact: drop-fakerestapi
-- stage:
+- stage: Deploy
   jobs:
   - deployment: FakeRestAPI
     pool:
