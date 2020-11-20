@@ -55,7 +55,7 @@ stages:
           - task: AzureWebApp@1
             displayName: 'Deploy Azure Web App'
             inputs:
-              azureSubscription: 'd3dd2baf-a0bf-4ef2-a51f-0582cb545799'
+              azureSubscription: 'UdacityQARelease'
               appName: 'uda-fake-rest-api'
               appType: webApp
               package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
