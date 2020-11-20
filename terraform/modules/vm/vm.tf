@@ -1,7 +1,7 @@
 resource "azurerm_network_interface" "main" {
   name                = "${var.application_type}-nic"
   location            = "${var.location}"
-  resource_group      = "${var.resource_group}"
+  resource_group_name = "${var.resource_group}"
 
   ip_configuration {
     name                          = "internal"
