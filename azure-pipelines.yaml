@@ -55,7 +55,7 @@ stages:
   - deployment: FakeRestAPI
     pool:
       vmImage: 'Ubuntu-16.04'
-    environment: 'udacity-capstone-vm'
+    environment: 'TEST'
     strategy:
       runOnce:
         deploy:
@@ -64,7 +64,7 @@ stages:
             displayName: 'Deploy Azure Web App'
             inputs:
               azureSubscription: 'UdacityQARelease'
-              appName: 'uda-fake-rest-api'
+              appName: 'udacity-capstone-AppService'
               appType: webApp
               package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
   # - deployment: VMDeploy
