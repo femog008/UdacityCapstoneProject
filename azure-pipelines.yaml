@@ -20,7 +20,7 @@ stages:
     - task: DownloadSecureFile@1
       displayName: 'Download secure file $(terraform.tfvars)'
       inputs:
-        secureFile: '$(terraform.tfvars)'
+        secureFile: 'terraform.tfvars'
     - task: TerraformTaskV1@0
       displayName: Init
       inputs:
