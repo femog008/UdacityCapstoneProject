@@ -1,6 +1,7 @@
 name: Azure Pipelines
 variables:
   python.version: '3.7.6'
+  System.Debug: true
 stages:
 - stage: Build
   jobs:
