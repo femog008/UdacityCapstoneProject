@@ -20,18 +20,7 @@ stages:
     - task: DownloadSecureFile@1
       displayName: 'Download secure file $(terraform.tfvars)'
       inputs:
-        secureFile: $(terraform.tfvars)
-    - task: TerraformTaskV1@0
-      displayName: Init
-      inputs:
-        provider: 'azurerm'
-        command: 'init'
-        backendServiceArm: 'UdacityQARelease'
-        backendAzureRmResourceGroupName: 'uda-vault-rg'
-        backendAzureRmStorageAccountName: 'udaterrasa'
-        backendAzureRmContainerName: 'terracontainer'
-        backendAzureRmKey: 'uda.terraform.tfstate'
-        workingDirectory: 'terraform'
+        secureFile: 'terraform.tfvars'
     - task: TerraformTaskV1@0
       displayName: 'validate and apply'
       inputs:
