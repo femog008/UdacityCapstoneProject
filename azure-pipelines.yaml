@@ -29,6 +29,12 @@ stages:
         backendAzureRmKey: 'uda.terraform.tfstate'
         workingDirectory: 'terraform'
     - task: TerraformTaskV1@0
+      inputs:
+        provider: 'azurerm'
+        command: 'plan'
+        environmentServiceNameAzureRM: 'UdacityQARelease'
+        workingDirectory: 'terraform'
+    - task: TerraformTaskV1@0
       displayName: 'validate and apply'
       inputs:
         provider: 'azurerm'
