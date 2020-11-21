@@ -14,13 +14,13 @@ stages:
         knownHostsEntry: '$(KNOWN_HOST_STRING)'
         sshPublicKey: '$(PUBLIC_KEY)'
         sshKeySecureFile: 'id_rsa'
-    - task: TerraformInstaller@0
-      inputs:
-        terraformVersion: '0.13.2'
     - task: DownloadSecureFile@1
       displayName: 'Download secure file $(terraform.tfvars)'
       inputs:
         secureFile: '$(terraform.tfvars)'
+    - task: TerraformInstaller@0
+      inputs:
+        terraformVersion: '0.13.2'
     - task: TerraformTaskV1@0
       displayName: Init
       inputs:
