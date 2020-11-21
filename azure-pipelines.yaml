@@ -55,7 +55,7 @@ stages:
   - deployment: FakeRestAPI
     pool:
       vmImage: 'Ubuntu-16.04'
-    environment: 'TEST'
+    environment: 'udacity-capstone-vm'
     strategy:
       runOnce:
         deploy:
