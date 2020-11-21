@@ -19,7 +19,9 @@ resource "azurerm_linux_virtual_machine" "main" {
   admin_username      = "${var.admin_username}"
   admin_password      = "${var.admin_password}"
   disable_password_authentication = false
-  network_interface_ids = ["azurerm_network_interface.main.id"]
+  network_interface_ids = [
+    azurerm_network_interface.main.id
+    ]
   os_disk {
     caching              = "ReadWrite"
     storage_account_type = "Standard_LRS"
