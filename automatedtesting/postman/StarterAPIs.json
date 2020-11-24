@@ -1,93 +1,461 @@
 {
 	"info": {
-		"_postman_id": "968b3a18-cc72-48a2-9b6b-e8619b4aaca8",
+		"_postman_id": "c1209ebc-d058-4bc2-a15e-eaf54be863ec",
 		"name": "Starter APIs",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "Create Employee",
-			"event": [
+			"name": "Regression Tests",
+			"item": [
 				{
-					"listen": "test",
-					"script": {
-						"id": "38b1717c-45ae-477f-8dae-8e889ba381d5",
-						"exec": [
-							"pm.test(\"Successful response\", function () {",
-							"    pm.expect(pm.response.text()).to.include(\"success\");",
-							"});",
-							"var json = pm.response.json();",
-							"pm.environment.set(\"id\", json.data.id);"
-						],
-						"type": "text/javascript"
-					}
+					"name": "Get all employee data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "f3531a9c-e104-4627-ad81-579a66ddbf0f",
+								"exec": [
+									"var requestName = pm.info.requestName;",
+									"",
+									"pm.test(requestName + \": HTTP Status 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(requestName + \": Reponse time < 1 second\",function(){",
+									"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/employees",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"employees"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a single employee data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "84a3fee0-dc15-4f89-be20-6406b42f81aa",
+								"exec": [
+									"var requestName = pm.info.requestName;",
+									"",
+									"pm.test(requestName + \": HTTP Status 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/employee/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"employee",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new record in database",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "dcc209a1-9862-4a27-8f2b-6d89c0257327",
+								"exec": [
+									"var requestName = pm.info.requestName;",
+									"",
+									"pm.test(requestName + \": HTTP Status 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Successful response\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"success\");",
+									"});",
+									"var json = pm.response.json();",
+									"pm.environment.set(\"id\", json.data.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " \t{\r\n        \"name\":\"Olufemi\",\r\n        \"salary\":\"1234567\",\r\n        \"age\":\"30\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/create",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update an employee record",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9c1f1e40-368c-4eba-bbe4-9c8d9ec94ed8",
+								"exec": [
+									"var requestName = pm.info.requestName;",
+									"",
+									"pm.test(requestName + \": HTTP Status 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Olufemi\",\r\n    \"salary\":\"1234567\",\r\n    \"age\":\"35\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/update/{{id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"update",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete an employee record",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b29db112-6fbc-4fda-86de-8fefe7ac789e",
+								"exec": [
+									"var requestName = pm.info.requestName;",
+									"",
+									"pm.test(requestName + \": HTTP Status 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.environment.set(\"id\", null);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"ID\": 1000,\r\n  \"Title\": \"Udacity Final Project\",\r\n  \"DueDate\": \"2020-12-05T13:00:20.677Z\",\r\n  \"Completed\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/delete/{{id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"delete",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
 				}
 			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\n    \"name\": \"{{name}}\",\n    \"salary\": \"{{salary}}\",\n    \"age\": \"{{age}}\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "http://dummy.restapiexample.com/api/v1/create",
-					"protocol": "http",
-					"host": [
-						"dummy",
-						"restapiexample",
-						"com"
-					],
-					"path": [
-						"api",
-						"v1",
-						"create"
-					]
-				}
-			},
-			"response": []
+			"protocolProfileBehavior": {}
 		},
 		{
-			"name": "Get All Employees",
-			"event": [
+			"name": "Data Validation Tests",
+			"item": [
 				{
-					"listen": "test",
-					"script": {
-						"id": "af3cb111-e3ac-4174-b8ca-7f4127a0285d",
-						"exec": [
-							"pm.test(\"Successful response\", function () {",
-							"    pm.expect(pm.response.text()).to.include(\"success\");",
-							"});",
-							""
-						],
-						"type": "text/javascript"
-					}
+					"name": "Get all employee data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3413898d-ab8c-44fc-929f-91a4ca341c62",
+								"exec": [
+									"var requestName = pm.info.requestName;",
+									"",
+									"pm.test(\"Validate - \" + requestName + \": Returns more than 1 result\", function () {",
+									"    var json = pm.response.json();",
+									"    //var count = Object.keys(myObject).length;",
+									"    pm.expect(Object.keys(json).length).to.greaterThan(1);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/employees",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"employees"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a single employee data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "b4955162-07bd-416c-89a7-23c235bb14ec",
+								"exec": [
+									"var requestName = pm.info.requestName;",
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Validate - \" + requestName + \" - Employee name returns 'Tiger Nixon'\", function () {",
+									"    pm.expect(jsonData.data.employee_name).equals(\"Tiger Nixon\");",
+									"});",
+									"pm.test(\"Validate - \" + requestName + \" - Employee salary returns 320800\", function () {",
+									"    pm.expect(jsonData.data.employee_salary).equals(320800);",
+									"});",
+									"pm.test(\"Validate - \" + requestName + \" - Employee age returns 61\", function () {",
+									"    pm.expect(jsonData.data.employee_age).equals(61);",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/employee/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"employee",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new record in database",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "8eab78f3-6d26-4404-a2b4-34f2c8550d69",
+								"exec": [
+									"var requestName = pm.info.requestName;",
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Validate - \" + requestName + \"Created employee name returns Olufemi\", function () {",
+									"    pm.expect(jsonData.data.name).equals(\"Olufemi\");",
+									"});",
+									"",
+									"pm.environment.set(\"id\", jsonData.data.id);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " \t{\r\n        \"name\":\"Olufemi\",\r\n        \"salary\":\"1234567\",\r\n        \"age\":\"30\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/create",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update an employee record",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3833e0e1-9564-4522-8eb0-bd818b2a78a9",
+								"exec": [
+									"var requestName = pm.info.requestName;",
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Validate - \" + requestName + \" - Employee age returns 37\", function () {",
+									"    pm.expect(jsonData.data.age).equals('37');",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Olufemi\",\r\n    \"salary\":\"1234567\",\r\n    \"age\":\"37\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/update/{{id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"update",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete an employee record",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "03056210-fb42-44f6-a54d-818368961956",
+								"exec": [
+									"var requestName = pm.info.requestName;",
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Validate - \" + requestName + \" - Response returns 'Successfully! Record has been deleted'\", function () {",
+									"    pm.expect(jsonData.message).equals('Successfully! Record has been deleted');",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"ID\": 1000,\r\n  \"Title\": \"Udacity Final Project\",\r\n  \"DueDate\": \"2020-12-05T13:00:20.677Z\",\r\n  \"Completed\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/delete/{{id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"delete",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
 				}
 			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://dummy.restapiexample.com/api/v1/employees",
-					"protocol": "http",
-					"host": [
-						"dummy",
-						"restapiexample",
-						"com"
-					],
-					"path": [
-						"api",
-						"v1",
-						"employees"
-					]
-				}
-			},
-			"response": []
+			"protocolProfileBehavior": {}
 		}
 	],
 	"protocolProfileBehavior": {}
