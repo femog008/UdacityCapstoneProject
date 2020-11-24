@@ -14,6 +14,17 @@ stages:
         knownHostsEntry: '$(KNOWN_HOST_STRING)'
         sshPublicKey: '$(PUBLIC_KEY)'
         sshKeySecureFile: 'id_rsa'
+    - task: CmdLine@2
+      inputs:
+        script: 'sudo npm install -g newman'
+        WorkingDirectory : $(System.DefaultWorkingDirectory)
+    - task: NewmanPostman@4
+      inputs:
+        collectionSourceType: 'file'
+        collectionFileSource: 'automatedtesting/postman'
+        Contents: '**/StarterAPIs.json'
+        environment: 'utomatedtesting/postman/dev.postman_environment.json'
+        reporters: 'junit'
     - task: TerraformInstaller@0
       inputs:
         terraformVersion: '0.13.2'
@@ -50,17 +61,7 @@ stages:
     - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip
       displayName: 'Upload Package'
       artifact: drop-fakerestapi
-    - task: CmdLine@2
-      inputs:
-        script: 'sudo npm install -g newman'
-        WorkingDirectory : $(System.DefaultWorkingDirectory)
-    - task: NewmanPostman@4
-      inputs:
-        collectionSourceType: 'file'
-        collectionFileSource: 'automatedtesting/postman'
-        Contents: '**/StarterAPIs.json'
-        environment: 'dev.postman_environment.json'
-        reporters: 'junit'
+
 - stage: Deploy
   jobs:
   - deployment: FakeRestAPI
