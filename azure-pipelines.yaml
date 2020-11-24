@@ -50,6 +50,10 @@ stages:
     - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip
       displayName: 'Upload Package'
       artifact: drop-fakerestapi
+    - task: CmdLine@2
+      inputs:
+        script: 'npm install -g newman'
+        WorkingDirectory : $(System.DefaultWorkingDirectory)
 - stage: Deploy
   jobs:
   - deployment: FakeRestAPI
