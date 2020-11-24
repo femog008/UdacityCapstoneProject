@@ -23,7 +23,7 @@ stages:
         collectionSourceType: 'file'
         collectionFileSource: 'automatedtesting/postman'
         Contents: '**/StarterAPIs.json'
-        environment: 'utomatedtesting/postman/dev.postman_environment.json'
+        environment: 'automatedtesting/postman/dev.postman_environment.json'
         reporters: 'junit'
     - task: TerraformInstaller@0
       inputs:
