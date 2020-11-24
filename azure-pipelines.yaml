@@ -15,6 +15,12 @@ stages:
         sshPublicKey: '$(PUBLIC_KEY)'
         sshKeySecureFile: 'id_rsa'
     - task: CmdLine@2
+      displayName: Install newman package command
+      inputs:
+        script: 'newman run automatedtesting/postman/StarterAPIs.json -e automatedtesting/postman/dev.postman_environment.json --reporters cli,junit --reporter-junit-export Results\junitReport.xml'
+        WorkingDirectory : $(System.DefaultWorkingDirectory)
+    - task: CmdLine@2
+      displayName: Run newman command
       inputs:
         script: 'sudo npm install -g newman'
         WorkingDirectory : $(System.DefaultWorkingDirectory)
