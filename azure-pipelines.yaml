@@ -52,7 +52,7 @@ stages:
       artifact: drop-fakerestapi
     - task: CmdLine@2
       inputs:
-        script: 'npm install -g newman'
+        script: 'sudo npm install -g newman'
         WorkingDirectory : $(System.DefaultWorkingDirectory)
 - stage: Deploy
   jobs:
