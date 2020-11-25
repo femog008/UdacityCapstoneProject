@@ -24,6 +24,7 @@ stages:
       inputs:
         script: 'newman run automatedtesting/postman/StarterAPIs.json -e automatedtesting/postman/dev.postman_environment.json --reporters cli,junit --reporter-junit-export Results\junitReport.xml'
         WorkingDirectory : $(System.DefaultWorkingDirectory)
+        failOnStderr: false
     - task: PublishTestResults@1
       inputs:
         testRunner: 'JUnit'
