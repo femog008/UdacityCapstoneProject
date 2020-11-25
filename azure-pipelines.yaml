@@ -24,13 +24,19 @@ stages:
       inputs:
         script: 'newman run automatedtesting/postman/StarterAPIs.json -e automatedtesting/postman/dev.postman_environment.json --reporters cli,junit --reporter-junit-export Results\junitReport.xml'
         WorkingDirectory : $(System.DefaultWorkingDirectory)
-    - task: NewmanPostman@4
+    - task: PublishTestResults@1
       inputs:
-        collectionSourceType: 'file'
-        collectionFileSource: 'automatedtesting/postman'
-        Contents: '**/StarterAPIs.json'
-        environment: 'automatedtesting/postman/dev.postman_environment.json'
-        reporters: 'junit'
+        testRunner: 'JUnit'
+        testResultsFiles: '**/Results/junitReport.xml'
+        testRunTitle: 'Integration Tests'
+        
+    # - task: NewmanPostman@4
+    #   inputs:
+    #     collectionSourceType: 'file'
+    #     collectionFileSource: 'automatedtesting/postman'
+    #     Contents: '**/StarterAPIs.json'
+    #     environment: 'automatedtesting/postman/dev.postman_environment.json'
+    #     reporters: 'junit'
     - task: TerraformInstaller@0
       inputs:
         terraformVersion: '0.13.2'
