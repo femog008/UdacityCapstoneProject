@@ -20,10 +20,18 @@ stages:
         script: 'sudo npm install -g newman'
         WorkingDirectory : $(System.DefaultWorkingDirectory)
     - task: CmdLine@2
+      condition: succeededOrFailed()
       displayName: Run newman command
       inputs:
         script: 'newman run automatedtesting/postman/StarterAPIs.json -e automatedtesting/postman/dev.postman_environment.json --reporters cli,junit --reporter-junit-export Results\junitReport.xml'
         WorkingDirectory : $(System.DefaultWorkingDirectory)
+    - task: Bash@3
+      inputs:
+        targetType: 'inline'
+        script: |
+          # Write your commands here
+          
+        workingDirectory: '$(System.DefaultWorkingDirectory)'
         failOnStderr: false
     - task: PublishTestResults@2
       inputs:
@@ -93,7 +101,7 @@ stages:
               appName: 'udacity-capstone-AppService'
               appType: webApp
               package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
-
+          - task: Bash@3
   - deployment: VMDeploy
     displayName: Install packages for testing
     environment:
