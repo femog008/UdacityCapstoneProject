@@ -5,6 +5,20 @@ variables:
 stages:
 - stage: Build
   jobs:
+  - job: Jmeter
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: JMeterInstaller@0
+      displayName: 'Install JMeter 5.2.1'
+      inputs:
+        jmeterVersion: '5.2.1'
+    - task: Bash@3
+      displayName: 'Run Jmeter test'
+      inputs:
+        targetType: 'inline'
+        script: |
+          jmeter -n -t automatedtesting/jmeter/Starter.jmx -Jresdir=automatedtesting/jmeter/NumberOfUsers.csv
   - job: Build
     pool:
       name: Hosted Ubuntu 1604
@@ -39,7 +53,7 @@ stages:
         testResultsFiles: '**/Results/junitReport.xml'
         failTaskOnFailedTests: false
         testRunTitle: 'Integration Tests'
-        
+
     # - task: NewmanPostman@4
     #   inputs:
     #     collectionSourceType: 'file'
