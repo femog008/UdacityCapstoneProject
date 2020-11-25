@@ -897,7 +897,7 @@
           <boolProp name="recycle">true</boolProp>
           <stringProp name="shareMode">shareMode.all</stringProp>
           <boolProp name="stopThread">false</boolProp>
-          <stringProp name="variableNames"></stringProp>
+          <stringProp name="variableNames">count</stringProp>
         </CSVDataSet>
         <hashTree/>
       </hashTree>
