@@ -23,7 +23,7 @@
 									"});",
 									"",
 									"pm.test(requestName + \": Reponse time < 1 second\",function(){",
-									"    pm.expect(pm.response.responseTime).to.be.below(1000);",
+									"    pm.expect(pm.response.responseTime).to.be.below(3000);",
 									"});"
 								],
 								"type": "text/javascript"
