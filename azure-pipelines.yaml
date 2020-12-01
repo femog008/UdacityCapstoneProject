@@ -53,15 +53,8 @@ stages:
         testResultsFiles: '**/Results/junitReport.xml'
         failTaskOnFailedTests: false
         testRunTitle: 'Integration Tests'
-
-    # - task: NewmanPostman@4
-    #   inputs:
-    #     collectionSourceType: 'file'
-    #     collectionFileSource: 'automatedtesting/postman'
-    #     Contents: '**/StarterAPIs.json'
-    #     environment: 'automatedtesting/postman/dev.postman_environment.json'
-    #     reporters: 'junit'
     - task: TerraformInstaller@0
+      displayName: Install Terraform
       inputs:
         terraformVersion: '0.13.2'
     - task: DownloadSecureFile@1
@@ -69,7 +62,7 @@ stages:
       inputs:
         secureFile: 'terraform.tfvars'
     - task: TerraformTaskV1@0
-      displayName: Init
+      displayName: Terraform Init
       inputs:
         provider: 'azurerm'
         command: 'init'
@@ -80,7 +73,7 @@ stages:
         backendAzureRmKey: 'uda.terraform.tfstate'
         workingDirectory: 'terraform'
     - task: TerraformTaskV1@0
-      displayName: 'validate and apply'
+      displayName: Terraform validate and apply
       inputs:
         provider: 'azurerm'
         command: 'apply'
@@ -89,6 +82,7 @@ stages:
         workingDirectory: 'terraform'
     - task: ArchiveFiles@2
       displayName: 'Archive FakeRestAPI'
+      continueOnError: true
       inputs:
         rootFolderOrFile: 'automatedtesting/jmeter/fakerestapi'
         includeRootFolder: false
