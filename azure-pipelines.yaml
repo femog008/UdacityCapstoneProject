@@ -20,25 +20,13 @@ stages:
       inputs:
         script: 'sudo npm install -g newman'
         WorkingDirectory : $(System.DefaultWorkingDirectory)
-    # - task: CmdLine@2
-    #   condition: succeededOrFailed()
-    #   displayName: Run newman command
-    #   inputs:
-    #     script: 'newman run automatedtesting/postman/StarterAPIs.json -e automatedtesting/postman/dev.postman_environment.json --reporters cli,junit --reporter-junit-export Results\junitReport.xml'
-    #     WorkingDirectory : $(System.DefaultWorkingDirectory)
-    - task: NewmanPostman@4
+    - task: CmdLine@2
+      condition: succeededOrFailed()
+      displayName: Run newman command
       inputs:
-        collectionSourceType: 'file'
-        collectionFileSource: 'automatedtesting/postman/StarterAPIs.json'
-        environment: 'automatedtesting/postman/dev.postman_environment.json'
-        ignoreRedirect: false
-        bail: false
-        sslInsecure: false
-        reporters: 'cli, junit'
-        htmlExtraDarkTheme: false
-        htmlExtraLogs: false
-        htmlExtraTestPaging: false
-        customReporter: 'junitReport.xml'
+        script: 'newman run automatedtesting/postman/StarterAPIs.json -e automatedtesting/postman/dev.postman_environment.json --reporters cli,junit --reporter-junit-export Results\junitReport.xml'
+        WorkingDirectory : $(System.DefaultWorkingDirectory)
+
     # - task: Bash@3
     #   inputs:
     #     targetType: 'inline'
@@ -51,7 +39,7 @@ stages:
       condition: succeededOrFailed()
       inputs:
         testResultsFormat: 'JUnit'
-        testResultsFiles: 'newman/*.xml'
+        testResultsFiles: 'Results\junitReport.xml'
         failTaskOnFailedTests: false
         testRunTitle: 'Integration Tests'
   - job: Jmeter
