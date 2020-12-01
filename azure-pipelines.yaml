@@ -39,7 +39,6 @@ stages:
         htmlExtraLogs: false
         htmlExtraTestPaging: false
         customReporter: 'junitReport.xml'
-
     # - task: Bash@3
     #   inputs:
     #     targetType: 'inline'
@@ -52,7 +51,7 @@ stages:
       condition: succeededOrFailed()
       inputs:
         testResultsFormat: 'JUnit'
-        testResultsFiles: 'newman/junitReport.xml'
+        testResultsFiles: 'newman/*.xml'
         failTaskOnFailedTests: false
         testRunTitle: 'Integration Tests'
   - job: Jmeter
