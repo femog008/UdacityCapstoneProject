@@ -48,10 +48,11 @@ stages:
         bail: false
         sslInsecure: false
         reporters: 'junit'
-        reporterHtmlExport: 'automatedtesting/postman/Results'
         htmlExtraDarkTheme: false
         htmlExtraLogs: false
         htmlExtraTestPaging: false
+        reporterJUnitExport: 'automatedtesting/postman/Results'
+        customReporter: 'junitReport.xml'
 
     - task: Bash@3
       inputs:
