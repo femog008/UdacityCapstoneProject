@@ -51,17 +51,17 @@ stages:
         htmlExtraDarkTheme: false
         htmlExtraLogs: false
         htmlExtraTestPaging: false
-        reporterJUnitExport: 'automatedtesting/postman/Results/junitReport.xml'
 
-    - task: Bash@3
-      inputs:
-        targetType: 'inline'
-        script: |
-          # Write your commands here
+    # - task: Bash@3
+    #   inputs:
+    #     targetType: 'inline'
+    #     script: |
+    #       # Write your commands here
           
-        workingDirectory: '$(System.DefaultWorkingDirectory)'
-        failOnStderr: false
+    #     workingDirectory: '$(System.DefaultWorkingDirectory)'
+    #     failOnStderr: false
     - task: PublishTestResults@2
+      condition: succeededOrFailed
       inputs:
         testResultsFormat: 'JUnit'
         testResultsFiles: '**/Results/junitReport.xml'
