@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "ec71c048-0f5f-4103-ab93-78254c19d392",
-		"name": "Starter APIs Copy 2",
+		"_postman_id": "887c05a1-cef3-45b5-9688-bbf51166be03",
+		"name": "Starter APIs Copy",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -9,12 +9,12 @@
 			"name": "Regression Tests",
 			"item": [
 				{
-					"name": "Get all employee data",
+					"name": "Get all Activities",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
-								"id": "19dbc6b0-f8cd-433c-80d0-f06975dfc487",
+								"id": "7e2033fe-7dd1-4cfd-9948-325ab7686d63",
 								"exec": [
 									"var requestName = pm.info.requestName;",
 									"",
@@ -22,7 +22,7 @@
 									"    pm.response.to.have.status(200);",
 									"});",
 									"",
-									"pm.test(requestName + \": Reponse time < 1 second\",function(){",
+									"pm.test(requestName + \": Reponse time < 3 second\",function(){",
 									"    pm.expect(pm.response.responseTime).to.be.below(3000);",
 									"});"
 								],
@@ -34,14 +34,190 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/v1/employees",
+							"raw": "{{url}}/api/Activities",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"Activities"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get a single Activity",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "c2a0fbec-0727-4880-8b74-d13b158b82d1",
+								"exec": [
+									"var requestName = pm.info.requestName;",
+									"",
+									"pm.test(requestName + \": HTTP Status 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/api/v1/employee/1",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"api",
 								"v1",
-								"employees"
+								"employee",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new record in database",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "28ba796c-2638-407d-9884-ab0412f4f6a3",
+								"exec": [
+									"var requestName = pm.info.requestName;",
+									"",
+									"pm.test(requestName + \": HTTP Status 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"pm.test(\"Successful response\", function () {",
+									"    pm.expect(pm.response.text()).to.include(\"success\");",
+									"});",
+									"var json = pm.response.json();",
+									"pm.environment.set(\"id\", json.data.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " \t{\r\n        \"name\":\"Olufemi\",\r\n        \"salary\":\"1234567\",\r\n        \"age\":\"30\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/create",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update an Activity",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "2623930c-c5d1-430d-ae1b-7cff04ae81f5",
+								"exec": [
+									"var requestName = pm.info.requestName;",
+									"",
+									"pm.test(requestName + \": HTTP Status 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Olufemi\",\r\n    \"salary\":\"1234567\",\r\n    \"age\":\"35\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/update/{{id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"update",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete an Activity",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "9afa00c1-ffbd-4ab8-b485-21ae0cb4d169",
+								"exec": [
+									"var requestName = pm.info.requestName;",
+									"",
+									"pm.test(requestName + \": HTTP Status 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.environment.set(\"id\", null);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"ID\": 1000,\r\n  \"Title\": \"Udacity Final Project\",\r\n  \"DueDate\": \"2020-12-05T13:00:20.677Z\",\r\n  \"Completed\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/delete/{{id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"delete",
+								"{{id}}"
 							]
 						}
 					},
@@ -54,12 +230,12 @@
 			"name": "Data Validation Tests",
 			"item": [
 				{
-					"name": "Get all employee data",
+					"name": "Get all Activities",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
-								"id": "e47b01c6-e6af-47ce-a2c9-d77df8afdb95",
+								"id": "a5dedb6d-744f-4ca6-a1c1-0bdc16d6df13",
 								"exec": [
 									"var requestName = pm.info.requestName;",
 									"",
@@ -91,12 +267,12 @@
 					"response": []
 				},
 				{
-					"name": "Get a single employee data",
+					"name": "Get a single Activity",
 					"event": [
 						{
 							"listen": "test",
 							"script": {
-								"id": "3aead05e-38fc-4ece-8c32-8464b7281e8b",
+								"id": "202f1b07-9994-4aa8-99a8-5eba627a2f8b",
 								"exec": [
 									"var requestName = pm.info.requestName;",
 									"var jsonData = pm.response.json();",
@@ -129,6 +305,149 @@
 								"v1",
 								"employee",
 								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create new record in database",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "687a1749-e3ed-47f9-b1a8-db0f905b76cf",
+								"exec": [
+									"var requestName = pm.info.requestName;",
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Validate - \" + requestName + \"Created employee name returns Olufemi\", function () {",
+									"    pm.expect(jsonData.data.name).equals(\"Olufemi\");",
+									"});",
+									"",
+									"pm.environment.set(\"id\", jsonData.data.id);",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " \t{\r\n        \"name\":\"Olufemi\",\r\n        \"salary\":\"1234567\",\r\n        \"age\":\"30\"\r\n    }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/create",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update an Activity",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "e55f6a1e-175c-4f69-8a9a-469d49c4d5d2",
+								"exec": [
+									"var requestName = pm.info.requestName;",
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Validate - \" + requestName + \" - Employee age returns 37\", function () {",
+									"    pm.expect(jsonData.data.age).equals('37');",
+									"});",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Olufemi\",\r\n    \"salary\":\"1234567\",\r\n    \"age\":\"37\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/update/{{id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"update",
+								"{{id}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete an Activity",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "fd7d3222-7e3e-4bc5-b820-3768df25888f",
+								"exec": [
+									"var requestName = pm.info.requestName;",
+									"var jsonData = pm.response.json();",
+									"",
+									"pm.test(\"Validate - \" + requestName + \" - Response returns 'Successfully! Record has been deleted'\", function () {",
+									"    pm.expect(jsonData.message).equals('Successfully! Record has been deleted');",
+									"});",
+									"",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"ID\": 1000,\r\n  \"Title\": \"Udacity Final Project\",\r\n  \"DueDate\": \"2020-12-05T13:00:20.677Z\",\r\n  \"Completed\": false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/api/v1/delete/{{id}}",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"delete",
+								"{{id}}"
 							]
 						}
 					},
