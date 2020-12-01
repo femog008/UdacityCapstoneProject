@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "c1209ebc-d058-4bc2-a15e-eaf54be863ec",
-		"name": "Starter APIs",
+		"_postman_id": "ec71c048-0f5f-4103-ab93-78254c19d392",
+		"name": "Starter APIs Copy 2",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -14,7 +14,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "f3531a9c-e104-4627-ad81-579a66ddbf0f",
+								"id": "19dbc6b0-f8cd-433c-80d0-f06975dfc487",
 								"exec": [
 									"var requestName = pm.info.requestName;",
 									"",
@@ -53,7 +53,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "84a3fee0-dc15-4f89-be20-6406b42f81aa",
+								"id": "c8874fea-cb95-40f1-ab65-366d62cf80db",
 								"exec": [
 									"var requestName = pm.info.requestName;",
 									"",
@@ -82,147 +82,6 @@
 						}
 					},
 					"response": []
-				},
-				{
-					"name": "Create new record in database",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "dcc209a1-9862-4a27-8f2b-6d89c0257327",
-								"exec": [
-									"var requestName = pm.info.requestName;",
-									"",
-									"pm.test(requestName + \": HTTP Status 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"pm.test(\"Successful response\", function () {",
-									"    pm.expect(pm.response.text()).to.include(\"success\");",
-									"});",
-									"var json = pm.response.json();",
-									"pm.environment.set(\"id\", json.data.id);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": " \t{\r\n        \"name\":\"Olufemi\",\r\n        \"salary\":\"1234567\",\r\n        \"age\":\"30\"\r\n    }",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/api/v1/create",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"create"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update an employee record",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "9c1f1e40-368c-4eba-bbe4-9c8d9ec94ed8",
-								"exec": [
-									"var requestName = pm.info.requestName;",
-									"",
-									"pm.test(requestName + \": HTTP Status 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\":\"Olufemi\",\r\n    \"salary\":\"1234567\",\r\n    \"age\":\"35\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/api/v1/update/{{id}}",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"update",
-								"{{id}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete an employee record",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "b29db112-6fbc-4fda-86de-8fefe7ac789e",
-								"exec": [
-									"var requestName = pm.info.requestName;",
-									"",
-									"pm.test(requestName + \": HTTP Status 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});",
-									"",
-									"pm.environment.set(\"id\", null);"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"ID\": 1000,\r\n  \"Title\": \"Udacity Final Project\",\r\n  \"DueDate\": \"2020-12-05T13:00:20.677Z\",\r\n  \"Completed\": false\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/api/v1/delete/{{id}}",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"delete",
-								"{{id}}"
-							]
-						}
-					},
-					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
@@ -236,7 +95,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "3413898d-ab8c-44fc-929f-91a4ca341c62",
+								"id": "e47b01c6-e6af-47ce-a2c9-d77df8afdb95",
 								"exec": [
 									"var requestName = pm.info.requestName;",
 									"",
@@ -273,7 +132,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "b4955162-07bd-416c-89a7-23c235bb14ec",
+								"id": "3aead05e-38fc-4ece-8c32-8464b7281e8b",
 								"exec": [
 									"var requestName = pm.info.requestName;",
 									"var jsonData = pm.response.json();",
@@ -306,149 +165,6 @@
 								"v1",
 								"employee",
 								"1"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Create new record in database",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "8eab78f3-6d26-4404-a2b4-34f2c8550d69",
-								"exec": [
-									"var requestName = pm.info.requestName;",
-									"var jsonData = pm.response.json();",
-									"",
-									"pm.test(\"Validate - \" + requestName + \"Created employee name returns Olufemi\", function () {",
-									"    pm.expect(jsonData.data.name).equals(\"Olufemi\");",
-									"});",
-									"",
-									"pm.environment.set(\"id\", jsonData.data.id);",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": " \t{\r\n        \"name\":\"Olufemi\",\r\n        \"salary\":\"1234567\",\r\n        \"age\":\"30\"\r\n    }",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/api/v1/create",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"create"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Update an employee record",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "3833e0e1-9564-4522-8eb0-bd818b2a78a9",
-								"exec": [
-									"var requestName = pm.info.requestName;",
-									"var jsonData = pm.response.json();",
-									"",
-									"pm.test(\"Validate - \" + requestName + \" - Employee age returns 37\", function () {",
-									"    pm.expect(jsonData.data.age).equals('37');",
-									"});",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "PUT",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\":\"Olufemi\",\r\n    \"salary\":\"1234567\",\r\n    \"age\":\"37\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/api/v1/update/{{id}}",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"update",
-								"{{id}}"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete an employee record",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "03056210-fb42-44f6-a54d-818368961956",
-								"exec": [
-									"var requestName = pm.info.requestName;",
-									"var jsonData = pm.response.json();",
-									"",
-									"pm.test(\"Validate - \" + requestName + \" - Response returns 'Successfully! Record has been deleted'\", function () {",
-									"    pm.expect(jsonData.message).equals('Successfully! Record has been deleted');",
-									"});",
-									"",
-									""
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"ID\": 1000,\r\n  \"Title\": \"Udacity Final Project\",\r\n  \"DueDate\": \"2020-12-05T13:00:20.677Z\",\r\n  \"Completed\": false\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url}}/api/v1/delete/{{id}}",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"delete",
-								"{{id}}"
 							]
 						}
 					},
