@@ -38,6 +38,8 @@ stages:
         htmlExtraDarkTheme: false
         htmlExtraLogs: false
         htmlExtraTestPaging: false
+        reporterJUnitExport: 'automatedtesting/postman/Results'
+        customReporter: 'junitReport.xml'
 
     # - task: Bash@3
     #   inputs:
@@ -51,7 +53,7 @@ stages:
       condition: succeededOrFailed()
       inputs:
         testResultsFormat: 'JUnit'
-        testResultsFiles: '**/Results/junitReport.xml'
+        testResultsFiles: 'automatedtesting/postman/Results/junitReport.xml'
         failTaskOnFailedTests: false
         testRunTitle: 'Integration Tests'
   - job: Jmeter
