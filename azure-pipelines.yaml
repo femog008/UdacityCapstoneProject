@@ -112,7 +112,6 @@ stages:
               appName: 'udacity-capstone-AppService'
               appType: webApp
               package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
-          - task: Bash@3
   - deployment: VMDeploy
     displayName: Install packages for testing
     environment:
