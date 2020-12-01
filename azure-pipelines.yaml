@@ -134,5 +134,10 @@ stages:
                 sudo apt-get install -y chromium-browser
                 pip3 install selenium
                 export PATH=$PATH:/usr/bin/chromium-browser
+          - task: Bash@3
+            inputs:
+              targetType: 'inline'
+              script: |
+                python3 automatedtesting/selenium/login.py
 
 
