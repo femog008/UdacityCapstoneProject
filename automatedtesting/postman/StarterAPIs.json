@@ -46,42 +46,6 @@
 						}
 					},
 					"response": []
-				},
-				{
-					"name": "Get a single employee data",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "c8874fea-cb95-40f1-ab65-366d62cf80db",
-								"exec": [
-									"var requestName = pm.info.requestName;",
-									"",
-									"pm.test(requestName + \": HTTP Status 200\", function () {",
-									"    pm.response.to.have.status(200);",
-									"});"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{url}}/api/v1/employee/1",
-							"host": [
-								"{{url}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"employee",
-								"1"
-							]
-						}
-					},
-					"response": []
 				}
 			],
 			"protocolProfileBehavior": {}
