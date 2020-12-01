@@ -51,8 +51,7 @@ stages:
         htmlExtraDarkTheme: false
         htmlExtraLogs: false
         htmlExtraTestPaging: false
-        reporterJUnitExport: 'automatedtesting/postman/Results'
-        customReporter: 'junitReport.xml'
+        reporterJUnitExport: 'automatedtesting/postman/Results/junitReport.xml'
 
     - task: Bash@3
       inputs:
