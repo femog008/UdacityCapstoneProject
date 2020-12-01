@@ -37,7 +37,7 @@ stages:
       condition: succeededOrFailed()
       displayName: Run newman command
       inputs:
-        script: 'newman run automatedtesting/postman/StarterAPIs.json -e automatedtesting/postman/dev.postman_environment.json --reporters cli,junit --reporter-junit-export Results\junitReport.xml'
+        script: 'newman run automatedtesting/postman/StarterAPIs.json automatedtesting/postman/dev.postman_environment.json --reporters cli,junit --reporter-junit-export Results\junitReport.xml'
         WorkingDirectory : $(System.DefaultWorkingDirectory)
     - task: Bash@3
       inputs:
