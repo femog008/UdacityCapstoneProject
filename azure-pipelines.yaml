@@ -173,9 +173,10 @@ stages:
             displayName: Run Selenium Tests
             inputs:
               script: |
-                export PATH=$PATH:/usr/bin/chromium-browser
-                echo $PATH
                 python3 $(Agent.TempDirectory)/login.py
+            # export PATH=$PATH:/usr/bin/chromium-browser
+            # echo $PATH
+            #python3 $(Agent.TempDirectory)/login.py
 
   - job: Jmeter
     pool:

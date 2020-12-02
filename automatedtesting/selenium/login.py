@@ -14,7 +14,8 @@ logging.basicConfig(
     datefmt="%m/%d/%Y %I:%M:%S %p",
     #datefmt="%m/%d/%Y %I:%M:%S %p",
     #filemode='w',
-    filename='selenium-test.log')
+    filename='selenium-test.log',
+    )
 chrome_path = '/usr/local/bin/chromedriver'
 
 
