@@ -100,10 +100,15 @@ stages:
           steps:
           - download: current
             artifact: dropScripts
-          # - task: PowerShell@2
-          #   inputs:
-          #     filePath: '$(Pipeline.Workspace)/dropScripts/login.py'  
+          - task: CopyFiles@2
+            displayName: Copy login script to Temp folder
+            inputs:
+              SourceFolder: '$(Pipeline.Workspace)/dropScripts'
+              Contents: '**'
+              TargetFolder: '$(Agent.TempDirectory)'
+              OverWrite: true
           - task: Bash@3
+            displayName: Install Python, chromium and execute script
             inputs:
               targetType: 'inline'
               script: |
@@ -114,7 +119,9 @@ stages:
                 sudo apt-get install unzip -y
                 sudo apt-get install -y chromium-browser
                 pip3 install selenium
-                sudo export PATH=$PATH:/usr/bin/chromium-browser
+                export PATH=$PATH:/usr/bin/chromium-browser
+                echo $PATH
+                sudo echo "PATH=$PATH:/var/test" >> ~/.bashrc
           - task: CmdLine@2
             condition: succeededOrFailed()
             displayName: List directory
@@ -139,12 +146,6 @@ stages:
                 which chromium-browser
                 whereis chromium-browser
                 echo $PATH
-          - task: CopyFiles@2
-            inputs:
-              SourceFolder: '$(Pipeline.Workspace)/dropScripts'
-              Contents: '**'
-              TargetFolder: '$(Agent.TempDirectory)'
-              OverWrite: true
           # - task: Bash@3
           #   inputs:
           #     targetType: 'inline'
