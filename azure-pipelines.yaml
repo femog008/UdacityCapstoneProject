@@ -42,20 +42,10 @@ stages:
         testResultsFiles: 'Results\junitReport.xml'
         failTaskOnFailedTests: false
         testRunTitle: 'Integration Tests'
-  - job: Jmeter
+  - job: Terraform Job
     pool:
       vmImage: 'ubuntu-latest'
     steps:
-    - task: JMeterInstaller@0
-      displayName: 'Install JMeter 5.2.1'
-      inputs:
-        jmeterVersion: '5.2.1'
-    - task: Bash@3
-      displayName: 'Run Jmeter test'
-      inputs:
-        targetType: 'inline'
-        script: |
-          jmeter -n -t automatedtesting/jmeter/Starter.jmx -Jresdir=automatedtesting/jmeter/NumberOfUsers.csv
     - task: TerraformInstaller@0
       displayName: Install Terraform
       inputs:
@@ -97,21 +87,7 @@ stages:
 
 - stage: Deploy
   jobs:
-  - deployment: FakeRestAPI
-    pool:
-      vmImage: 'Ubuntu-16.04'
-    environment: 'TEST'
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-          - task: AzureWebApp@1
-            displayName: 'Deploy Azure Web App'
-            inputs:
-              azureSubscription: 'UdacityQARelease'
-              appName: 'udacity-capstone-AppService'
-              appType: webApp
-              package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
+
   - deployment: VMDeploy
     displayName: Install packages for testing
     environment:
@@ -148,6 +124,8 @@ stages:
                 cd azagent/_work/1/s
                 pwd
                 cd ..
+                pwd
+                ls -al
                 cd ..
                 cd _temp
                 pwd
@@ -170,6 +148,37 @@ stages:
             inputs:
               script: 'python3 $(Pipeline.Workspace)/automatedtesting/selenium/login.py'
               WorkingDirectory : $(System.DefaultWorkingDirectory)
+
+  - job: Jmeter
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: JMeterInstaller@0
+      displayName: 'Install JMeter 5.2.1'
+      inputs:
+        jmeterVersion: '5.2.1'
+    - task: Bash@3
+      displayName: 'Run Jmeter test'
+      inputs:
+        targetType: 'inline'
+        script: |
+          jmeter -n -t automatedtesting/jmeter/Starter.jmx -Jresdir=automatedtesting/jmeter/NumberOfUsers.csv
+
+  - deployment: FakeRestAPI
+    pool:
+      vmImage: 'Ubuntu-16.04'
+    environment: 'TEST'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: AzureWebApp@1
+            displayName: 'Deploy Azure Web App'
+            inputs:
+              azureSubscription: 'UdacityQARelease'
+              appName: 'udacity-capstone-AppService'
+              appType: webApp
+              package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
 
 
               
