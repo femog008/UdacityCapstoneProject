@@ -152,7 +152,7 @@ stages:
             condition: succeededOrFailed()
             displayName: Run Selenium Tests
             inputs:
-              script: 'python3 login.py'
+              script: 'python3 $(Agent.TempDirectory)/login.py'
               WorkingDirectory : $(System.DefaultWorkingDirectory)
 
   - job: Jmeter
