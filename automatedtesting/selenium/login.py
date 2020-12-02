@@ -3,7 +3,7 @@ import time
 import logging
 from selenium import webdriver
 #from webdriver_manager.chrome import ChromeDriverManager
-#from selenium.webdriver.chrome.options import Options as ChromeOptions
+from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.common.exceptions import NoSuchElementException        
 
 
@@ -15,17 +15,20 @@ logging.basicConfig(
     #datefmt="%m/%d/%Y %I:%M:%S %p",
     #filemode='w',
     filename='selenium-test.log')
+chrome_path = '/usr/local/bin/chromedriver'
 
 
 # Start the browser and login with standard_user
 def login (user, password):
     print ('Starting the browser...')
     # --uncomment when running in Azure DevOps.
-    # options = ChromeOptions()
-    # options.add_argument("--headless") 
-    # driver = webdriver.Chrome(options=options)
+    options = ChromeOptions()
+    options.add_argument("--headless") 
+    driver = webdriver.Chrome(chrome_path, options=options)
+
     baseUrl = "https://www.saucedemo.com"
-    driver = webdriver.Chrome('/usr/local/bin/chromedriver')
+    #driver = webdriver.Chrome(chrome_path)
+
     print ('Browser started successfully. Navigating to the demo page to login.')
     logging.info('Browser started successfully. Navigating to the demo page to login.')
     driver.get(baseUrl)

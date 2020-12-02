@@ -37,33 +37,33 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     steps:
-    - task: TerraformInstaller@0
-      displayName: Install Terraform
-      inputs:
-        terraformVersion: '0.13.2'
-    - task: DownloadSecureFile@1
-      displayName: 'Download secure file $(terraform.tfvars)'
-      inputs:
-        secureFile: 'terraform.tfvars'
-    - task: TerraformTaskV1@0
-      displayName: Terraform Init
-      inputs:
-        provider: 'azurerm'
-        command: 'init'
-        backendServiceArm: 'UdacityQARelease'
-        backendAzureRmResourceGroupName: 'uda-vault-rg'
-        backendAzureRmStorageAccountName: 'udaterrasa'
-        backendAzureRmContainerName: 'terracontainer'
-        backendAzureRmKey: 'uda.terraform.tfstate'
-        workingDirectory: 'terraform'
-    - task: TerraformTaskV1@0
-      displayName: Terraform validate and apply
-      inputs:
-        provider: 'azurerm'
-        command: 'apply'
-        commandOptions: '-var-file="$(Agent.TempDirectory)/terraform.tfvars'
-        environmentServiceNameAzureRM: 'UdacityQARelease'
-        workingDirectory: 'terraform'
+    # - task: TerraformInstaller@0
+    #   displayName: Install Terraform
+    #   inputs:
+    #     terraformVersion: '0.13.2'
+    # - task: DownloadSecureFile@1
+    #   displayName: 'Download secure file $(terraform.tfvars)'
+    #   inputs:
+    #     secureFile: 'terraform.tfvars'
+    # - task: TerraformTaskV1@0
+    #   displayName: Terraform Init
+    #   inputs:
+    #     provider: 'azurerm'
+    #     command: 'init'
+    #     backendServiceArm: 'UdacityQARelease'
+    #     backendAzureRmResourceGroupName: 'uda-vault-rg'
+    #     backendAzureRmStorageAccountName: 'udaterrasa'
+    #     backendAzureRmContainerName: 'terracontainer'
+    #     backendAzureRmKey: 'uda.terraform.tfstate'
+    #     workingDirectory: 'terraform'
+    # - task: TerraformTaskV1@0
+    #   displayName: Terraform validate and apply
+    #   inputs:
+    #     provider: 'azurerm'
+    #     command: 'apply'
+    #     commandOptions: '-var-file="$(Agent.TempDirectory)/terraform.tfvars'
+    #     environmentServiceNameAzureRM: 'UdacityQARelease'
+    #     workingDirectory: 'terraform'
     - task: ArchiveFiles@2
       displayName: 'Archive FakeRestAPI'
       continueOnError: true
