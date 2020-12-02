@@ -26,15 +26,6 @@ stages:
       inputs:
         script: 'newman run automatedtesting/postman/StarterAPIs.json -e automatedtesting/postman/dev.postman_environment.json --reporters cli,junit --reporter-junit-export Results\junitReport.xml'
         WorkingDirectory : $(System.DefaultWorkingDirectory)
-
-    # - task: Bash@3
-    #   inputs:
-    #     targetType: 'inline'
-    #     script: |
-    #       # Write your commands here
-          
-    #     workingDirectory: '$(System.DefaultWorkingDirectory)'
-    #     failOnStderr: false
     - task: PublishTestResults@2
       condition: succeededOrFailed()
       inputs:
@@ -42,7 +33,7 @@ stages:
         testResultsFiles: 'Results\junitReport.xml'
         failTaskOnFailedTests: false
         testRunTitle: 'Integration Tests'
-  - job: Terraform Job
+  - job: Terraform
     pool:
       vmImage: 'ubuntu-latest'
     steps:
