@@ -154,7 +154,7 @@ stages:
                 ls -al
           - task: CopyFiles@2
             inputs:
-              SourceFolder: '$(System.DefaultWorkingDirectory)/automatedtesting/selenium'
+              SourceFolder: '$(Pipeline.Workspace)/automatedtesting/selenium'
               Contents: '**'
               TargetFolder: '$(Agent.TempDirectory)'
               OverWrite: true
@@ -168,7 +168,7 @@ stages:
             condition: succeededOrFailed()
             displayName: Run Selenium Tests
             inputs:
-              script: 'python3 ../s/1/automatedtesting/selenium/login.py'
+              script: 'python3 $(Pipeline.Workspace)/automatedtesting/selenium/login.py'
               WorkingDirectory : $(System.DefaultWorkingDirectory)
 
 
