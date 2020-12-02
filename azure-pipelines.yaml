@@ -147,6 +147,12 @@ stages:
           #     workingDirectory: '$(System.DefaultWorkingDirectory)'
           - task: CmdLine@2
             condition: succeededOrFailed()
+            displayName: List directory
+            inputs:
+              script: 'ls -al'
+            #  WorkingDirectory : $(System.DefaultWorkingDirectory)
+          - task: CmdLine@2
+            condition: succeededOrFailed()
             displayName: Run Selenium Tests
             inputs:
               script: 'python3 ../s/1/automatedtesting/selenium/login.py'
