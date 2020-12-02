@@ -119,12 +119,12 @@ stages:
                 sudo apt-get install unzip -y
                 sudo apt-get install -y chromium-browser
                 pip3 install selenium
-                export PATH=$PATH:/usr/bin/chromium-browser
-                echo $PATH
-                sudo echo "PATH=$PATH:/var/test" >> ~/.bashrc
-                chmod 777 $(Agent.TempDirectory)/login.py
-                python3 $(Agent.TempDirectory)/login.py
-          # - task: CmdLine@2
+          #       export PATH=$PATH:/usr/bin/chromium-browser
+          #       echo $PATH
+          #       sudo echo "PATH=$PATH:/var/test" >> ~/.bashrc
+          #       chmod 777 $(Agent.TempDirectory)/login.py
+          #       python3 $(Agent.TempDirectory)/login.py
+          # # - task: CmdLine@2
           #   condition: succeededOrFailed()
           #   displayName: List directory
           #   inputs:
@@ -154,12 +154,14 @@ stages:
           #     script: 'python3 automatedtesting/selenium/login.py'
           #     workingDirectory: '$(System.DefaultWorkingDirectory)'
             #  WorkingDirectory : $(System.DefaultWorkingDirectory)
-          # - task: CmdLine@2
-          #   condition: succeededOrFailed()
-          #   displayName: Run Selenium Tests
-          #   inputs:
-          #     script: 'python3 $(Agent.TempDirectory)/login.py'
-          #     WorkingDirectory : $(System.DefaultWorkingDirectory)
+          - task: CmdLine@2
+            condition: succeededOrFailed()
+            displayName: Run Selenium Tests
+            inputs:
+              script: |
+                export PATH=$PATH:/usr/bin/chromium-browser
+                echo $PATH
+                python3 $(Agent.TempDirectory)/login.py
 
   - job: Jmeter
     pool:
