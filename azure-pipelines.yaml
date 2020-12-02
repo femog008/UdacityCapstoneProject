@@ -124,8 +124,10 @@ stages:
                 pip3 install webdriver-manager
                 pip3 install selenium
 
-                wget -N https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip -P 
-                unzip ~/chromedriver_linux64.zip -d
+                echo CHROME_DRIVER_VERSION
+
+                wget -N https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip -P ~/
+                unzip ~/chromedriver_linux64.zip -d ~/
                 rm ~/chromedriver_linux64.zip
                 sudo mv -f ~/chromedriver /usr/local/bin/chromedriver
                 sudo chown root:root /usr/local/bin/chromedriver
