@@ -143,7 +143,8 @@ stages:
             condition: succeededOrFailed()
             displayName: Run Selenium Tests
             inputs:
-              script: 'python3 automatedtesting/selenium/login.py'
+              script: 'python3 ../s/1/automatedtesting/selenium/login.py'
               WorkingDirectory : $(System.DefaultWorkingDirectory)
+
 
 
