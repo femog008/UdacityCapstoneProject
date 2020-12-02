@@ -138,6 +138,7 @@ stages:
                 ls -al
                 which chromium-browser
                 whereis chromium-browser
+                echo $PATH
           - task: CopyFiles@2
             inputs:
               SourceFolder: '$(Pipeline.Workspace)/dropScripts'
