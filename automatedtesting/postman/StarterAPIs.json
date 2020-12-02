@@ -1,7 +1,7 @@
 {
 	"info": {
-		"_postman_id": "887c05a1-cef3-45b5-9688-bbf51166be03",
-		"name": "Starter APIs Copy",
+		"_postman_id": "c9161ece-46de-4e4f-b811-679b55bcc677",
+		"name": "FakeRestApi",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -14,7 +14,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "7e2033fe-7dd1-4cfd-9948-325ab7686d63",
+								"id": "fa544775-d19f-4c0d-b4fc-7b81f35c7bd8",
 								"exec": [
 									"var requestName = pm.info.requestName;",
 									"",
@@ -52,7 +52,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "c2a0fbec-0727-4880-8b74-d13b158b82d1",
+								"id": "3bc9d2e8-8630-4571-838a-cf1ae5311f16",
 								"exec": [
 									"var requestName = pm.info.requestName;",
 									"",
@@ -68,14 +68,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/v1/employee/1",
+							"raw": "{{url}}/api/Activities/1",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"api",
-								"v1",
-								"employee",
+								"Activities",
 								"1"
 							]
 						}
@@ -88,18 +87,15 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "28ba796c-2638-407d-9884-ab0412f4f6a3",
+								"id": "73a22875-1e86-43aa-9c2c-8654095f641e",
 								"exec": [
 									"var requestName = pm.info.requestName;",
+									"var jsonData = pm.response.json();",
 									"",
 									"pm.test(requestName + \": HTTP Status 200\", function () {",
 									"    pm.response.to.have.status(200);",
 									"});",
-									"pm.test(\"Successful response\", function () {",
-									"    pm.expect(pm.response.text()).to.include(\"success\");",
-									"});",
-									"var json = pm.response.json();",
-									"pm.environment.set(\"id\", json.data.id);"
+									"pm.environment.set(\"ID\", jsonData.ID);"
 								],
 								"type": "text/javascript"
 							}
@@ -110,7 +106,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": " \t{\r\n        \"name\":\"Olufemi\",\r\n        \"salary\":\"1234567\",\r\n        \"age\":\"30\"\r\n    }",
+							"raw": "{\r\n  \"ID\": 5000,\r\n  \"Title\": \"Uda-1\",\r\n  \"DueDate\": \"2020-12-01T21:53:01.773Z\",\r\n  \"Completed\": true\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -118,14 +114,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/api/v1/create",
+							"raw": "{{url}}/api/Activities/",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"api",
-								"v1",
-								"create"
+								"Activities",
+								""
 							]
 						}
 					},
@@ -137,7 +133,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "2623930c-c5d1-430d-ae1b-7cff04ae81f5",
+								"id": "08cdb1b6-d12f-4c58-8f6e-cf8b316ca555",
 								"exec": [
 									"var requestName = pm.info.requestName;",
 									"",
@@ -154,7 +150,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\":\"Olufemi\",\r\n    \"salary\":\"1234567\",\r\n    \"age\":\"35\"\r\n}",
+							"raw": "{\r\n  \"ID\": 5000,\r\n  \"Title\": \"Uda-1\",\r\n  \"DueDate\": \"2020-12-01T21:53:01.773Z\",\r\n  \"Completed\": false\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -162,15 +158,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/api/v1/update/{{id}}",
+							"raw": "{{url}}/api/Activities/{{ID}}",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"api",
-								"v1",
-								"update",
-								"{{id}}"
+								"Activities",
+								"{{ID}}"
 							]
 						}
 					},
@@ -182,7 +177,7 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "9afa00c1-ffbd-4ab8-b485-21ae0cb4d169",
+								"id": "ca7224c3-460f-4d57-ab9c-245e5e4406fd",
 								"exec": [
 									"var requestName = pm.info.requestName;",
 									"",
@@ -209,15 +204,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/api/v1/delete/{{id}}",
+							"raw": "{{url}}/api/Activities/{{ID}}",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"api",
-								"v1",
-								"delete",
-								"{{id}}"
+								"Activities",
+								"{{ID}}"
 							]
 						}
 					},
@@ -253,14 +247,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/v1/employees",
+							"raw": "{{url}}/api/Activities",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"api",
-								"v1",
-								"employees"
+								"Activities"
 							]
 						}
 					},
@@ -277,16 +270,15 @@
 									"var requestName = pm.info.requestName;",
 									"var jsonData = pm.response.json();",
 									"",
-									"pm.test(\"Validate - \" + requestName + \" - Employee name returns 'Tiger Nixon'\", function () {",
-									"    pm.expect(jsonData.data.employee_name).equals(\"Tiger Nixon\");",
+									"pm.test(\"Validate - \" + requestName + \" - Activity ID returns '1'\", function () {",
+									"    pm.expect(jsonData.ID).equals(1);",
 									"});",
-									"pm.test(\"Validate - \" + requestName + \" - Employee salary returns 320800\", function () {",
-									"    pm.expect(jsonData.data.employee_salary).equals(320800);",
+									"pm.test(\"Validate - \" + requestName + \" - Activity Title returns 'Activity 1'\", function () {",
+									"    pm.expect(jsonData.Title).equals(\"Activity 1\");",
 									"});",
-									"pm.test(\"Validate - \" + requestName + \" - Employee age returns 61\", function () {",
-									"    pm.expect(jsonData.data.employee_age).equals(61);",
-									"});",
-									""
+									"pm.test(\"Validate - \" + requestName + \" - Activity Completed returns 'false'\", function () {",
+									"    pm.expect(jsonData.Completed).false;",
+									"});"
 								],
 								"type": "text/javascript"
 							}
@@ -296,14 +288,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url}}/api/v1/employee/1",
+							"raw": "{{url}}/api/Activities/1",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"api",
-								"v1",
-								"employee",
+								"Activities",
 								"1"
 							]
 						}
@@ -321,11 +312,14 @@
 									"var requestName = pm.info.requestName;",
 									"var jsonData = pm.response.json();",
 									"",
-									"pm.test(\"Validate - \" + requestName + \"Created employee name returns Olufemi\", function () {",
-									"    pm.expect(jsonData.data.name).equals(\"Olufemi\");",
+									"pm.test(\"Validate - \" + requestName + \"Created Activity title returns Uda-1\", function () {",
+									"    pm.expect(jsonData.Title).equals(\"Uda-1\");",
+									"});",
+									"pm.test(\"Successful response\", function () {",
+									"    pm.expect(jsonData.ID).to.eql(pm.environment.get(\"ID\"));",
 									"});",
 									"",
-									"pm.environment.set(\"id\", jsonData.data.id);",
+									"pm.environment.set(\"ID\", jsonData.ID);",
 									""
 								],
 								"type": "text/javascript"
@@ -337,7 +331,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": " \t{\r\n        \"name\":\"Olufemi\",\r\n        \"salary\":\"1234567\",\r\n        \"age\":\"30\"\r\n    }",
+							"raw": "{\r\n  \"ID\": 5000,\r\n  \"Title\": \"Uda-1\",\r\n  \"DueDate\": \"2020-12-01T21:53:01.773Z\",\r\n  \"Completed\": true\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -345,14 +339,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/api/v1/create",
+							"raw": "{{url}}/api/Activities/",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"api",
-								"v1",
-								"create"
+								"Activities",
+								""
 							]
 						}
 					},
@@ -364,13 +358,13 @@
 						{
 							"listen": "test",
 							"script": {
-								"id": "e55f6a1e-175c-4f69-8a9a-469d49c4d5d2",
+								"id": "eef215a5-3eaa-499c-8413-71e65a6e8123",
 								"exec": [
 									"var requestName = pm.info.requestName;",
 									"var jsonData = pm.response.json();",
 									"",
-									"pm.test(\"Validate - \" + requestName + \" - Employee age returns 37\", function () {",
-									"    pm.expect(jsonData.data.age).equals('37');",
+									"pm.test(\"Validate - \" + requestName + \" - Activity update returns false\", function () {",
+									"    pm.expect(jsonData.Completed).false;",
 									"});",
 									""
 								],
@@ -383,7 +377,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\":\"Olufemi\",\r\n    \"salary\":\"1234567\",\r\n    \"age\":\"37\"\r\n}",
+							"raw": "{\r\n  \"ID\": 5000,\r\n  \"Title\": \"Uda-1\",\r\n  \"DueDate\": \"2020-12-01T21:53:01.773Z\",\r\n  \"Completed\": false\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -391,15 +385,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/api/v1/update/{{id}}",
+							"raw": "{{url}}/api/Activities/{{ID}}",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"api",
-								"v1",
-								"update",
-								"{{id}}"
+								"Activities",
+								"{{ID}}"
 							]
 						}
 					},
@@ -414,12 +407,10 @@
 								"id": "fd7d3222-7e3e-4bc5-b820-3768df25888f",
 								"exec": [
 									"var requestName = pm.info.requestName;",
-									"var jsonData = pm.response.json();",
 									"",
 									"pm.test(\"Validate - \" + requestName + \" - Response returns 'Successfully! Record has been deleted'\", function () {",
-									"    pm.expect(jsonData.message).equals('Successfully! Record has been deleted');",
+									"    pm.expect(pm.response.text()).eql('');",
 									"});",
-									"",
 									""
 								],
 								"type": "text/javascript"
@@ -431,7 +422,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"ID\": 1000,\r\n  \"Title\": \"Udacity Final Project\",\r\n  \"DueDate\": \"2020-12-05T13:00:20.677Z\",\r\n  \"Completed\": false\r\n}",
+							"raw": "",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -439,15 +430,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{url}}/api/v1/delete/{{id}}",
+							"raw": "{{url}}/api/Activities/{{ID}}",
 							"host": [
 								"{{url}}"
 							],
 							"path": [
 								"api",
-								"v1",
-								"delete",
-								"{{id}}"
+								"Activities",
+								"{{ID}}"
 							]
 						}
 					},
