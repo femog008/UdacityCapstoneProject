@@ -114,12 +114,23 @@ stages:
               script: |
                 #! /bin/bash
                 
+                CHROME_DRIVER_VERSION=`curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE`
+
                 sudo apt-get upgrade -y
                 sudo apt-get install python3-pip -y
                 sudo apt-get install unzip -y
                 sudo apt-get install -y chromium-browser
+                sudo apt-get install unzip
                 pip3 install webdriver-manager
                 pip3 install selenium
+
+                wget -N https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip -P 
+                unzip ~/chromedriver_linux64.zip -d
+                rm ~/chromedriver_linux64.zip
+                sudo mv -f ~/chromedriver /usr/local/bin/chromedriver
+                sudo chown root:root /usr/local/bin/chromedriver
+                sudo chmod 0755 /usr/local/bin/chromedriver
+
           #       export PATH=$PATH:/usr/bin/chromium-browser
           #       echo $PATH
           #       sudo echo "PATH=$PATH:/var/test" >> ~/.bashrc

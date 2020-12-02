@@ -2,8 +2,8 @@
 import time
 import logging
 from selenium import webdriver
-from webdriver_manager.chrome import ChromeDriverManager
-from selenium.webdriver.chrome.options import Options as ChromeOptions
+#from webdriver_manager.chrome import ChromeDriverManager
+#from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.common.exceptions import NoSuchElementException        
 
 
@@ -25,7 +25,7 @@ def login (user, password):
     # options.add_argument("--headless") 
     # driver = webdriver.Chrome(options=options)
     baseUrl = "https://www.saucedemo.com"
-    driver = webdriver.Chrome(ChromeDriverManager().install())
+    driver = webdriver.Chrome('/usr/local/bin/chromedriver')
     print ('Browser started successfully. Navigating to the demo page to login.')
     logging.info('Browser started successfully. Navigating to the demo page to login.')
     driver.get(baseUrl)
