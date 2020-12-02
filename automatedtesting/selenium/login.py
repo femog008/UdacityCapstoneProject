@@ -8,7 +8,7 @@ from selenium.common.exceptions import NoSuchElementException
 #Logging Config
 logging.basicConfig(
     level=logging.INFO,
-    format="[%(asctime)s] %(levelname)s [%(name)s.%(funcName)s:%(lineno)d] %(message)s",
+    format="%(asctime)s %(levelname)s [%(name)s.%(funcName)s:%(lineno)d] %(message)s",
     datefmt="%m/%d/%Y %I:%M:%S %p",
     #datefmt="%m/%d/%Y %I:%M:%S %p",
     #filemode='w',
