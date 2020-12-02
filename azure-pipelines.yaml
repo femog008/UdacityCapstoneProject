@@ -138,6 +138,6 @@ stages:
             inputs:
               targetType: 'inline'
               script: 'python3 automatedtesting/selenium/login.py'
-              workingDirectory: '$(Pipeline.Workspace)'
+              workingDirectory: '$(System.DefaultWorkingDirectory)'
 
 
