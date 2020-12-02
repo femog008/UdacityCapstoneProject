@@ -136,6 +136,8 @@ stages:
                 cd _temp
                 pwd
                 ls -al
+                which chromium-browser
+                whereis chromium-browser
           - task: CopyFiles@2
             inputs:
               SourceFolder: '$(Pipeline.Workspace)/dropScripts'
