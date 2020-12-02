@@ -117,6 +117,7 @@ stages:
                 cd ..
                 pwd
                 ls -al
+                ls -al drop-fakerestapi
                 cd ..
                 cd _temp
                 pwd
