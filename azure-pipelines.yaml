@@ -114,7 +114,7 @@ stages:
                 sudo apt-get install unzip -y
                 sudo apt-get install -y chromium-browser
                 pip3 install selenium
-                export PATH=$PATH:/usr/bin/chromium-browser
+                sudo export PATH=$PATH:/usr/bin/chromium-browser
           - task: CmdLine@2
             condition: succeededOrFailed()
             displayName: List directory
