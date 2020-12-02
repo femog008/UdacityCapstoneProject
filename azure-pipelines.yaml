@@ -77,12 +77,12 @@ stages:
       artifact: drop-fakerestapi
 
     - task: CopyFiles@2
-      displayName: 'Copy pyyhon scripts for later use in the pipeline'
+      displayName: 'Copy python scripts for later use in the pipeline'
       inputs:
         contents: 'automatedtesting/selenium/**'
         targetFolder: '$(Build.StagingDirectory)'
     - publish: '$(Build.ArtifactStagingDirectory)/automatedtesting/selenium'
-      displayName: 'Publish powershell scripts for later use'
+      displayName: 'Publish python scripts for later use'
       artifact: dropScripts
 
 - stage: Deploy
@@ -100,9 +100,9 @@ stages:
           steps:
           - download: current
             artifact: dropScripts
-          - task: PowerShell@2
-            inputs:
-              filePath: '$(Pipeline.Workspace)/dropScripts/login.py'  
+          # - task: PowerShell@2
+          #   inputs:
+          #     filePath: '$(Pipeline.Workspace)/dropScripts/login.py'  
           - task: Bash@3
             inputs:
               targetType: 'inline'
@@ -138,7 +138,7 @@ stages:
                 ls -al
           - task: CopyFiles@2
             inputs:
-              SourceFolder: '$(Pipeline.Workspace)/automatedtesting/selenium'
+              SourceFolder: '$(Pipeline.Workspace)/dropScripts'
               Contents: '**'
               TargetFolder: '$(Agent.TempDirectory)'
               OverWrite: true
@@ -152,7 +152,7 @@ stages:
             condition: succeededOrFailed()
             displayName: Run Selenium Tests
             inputs:
-              script: 'python3 $(Pipeline.Workspace)/automatedtesting/selenium/login.py'
+              script: 'python3 login.py'
               WorkingDirectory : $(System.DefaultWorkingDirectory)
 
   - job: Jmeter
