@@ -134,6 +134,24 @@ stages:
                 sudo apt-get install -y chromium-browser
                 pip3 install selenium
                 export PATH=$PATH:/usr/bin/chromium-browser
+          - task: CmdLine@2
+            condition: succeededOrFailed()
+            displayName: List directory
+            inputs:
+              script: |
+                pwd
+                ls -al
+                pwd
+                cd ~
+                pwd
+                ls -al
+                cd azagent/_work/1/s
+                pwd
+                cd ..
+                cd ..
+                cd _temp
+                pwd
+                ls -al
           - task: CopyFiles@2
             inputs:
               SourceFolder: '$(System.DefaultWorkingDirectory)/automatedtesting/selenium'
@@ -145,11 +163,6 @@ stages:
           #     targetType: 'inline'
           #     script: 'python3 automatedtesting/selenium/login.py'
           #     workingDirectory: '$(System.DefaultWorkingDirectory)'
-          - task: CmdLine@2
-            condition: succeededOrFailed()
-            displayName: List directory
-            inputs:
-              script: 'ls -al'
             #  WorkingDirectory : $(System.DefaultWorkingDirectory)
           - task: CmdLine@2
             condition: succeededOrFailed()
