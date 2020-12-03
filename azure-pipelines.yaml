@@ -1,11 +1,10 @@
 name: Azure Pipelines
 variables:
   python.version: '3.7.6'
-  System.Debug: true
+  # System.Debug: true
 stages:
 - stage: Build
   jobs:
- 
   - job: Build
     pool:
       name: Hosted Ubuntu 1604
@@ -37,33 +36,33 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     steps:
-    # - task: TerraformInstaller@0
-    #   displayName: Install Terraform
-    #   inputs:
-    #     terraformVersion: '0.13.2'
-    # - task: DownloadSecureFile@1
-    #   displayName: 'Download secure file $(terraform.tfvars)'
-    #   inputs:
-    #     secureFile: 'terraform.tfvars'
-    # - task: TerraformTaskV1@0
-    #   displayName: Terraform Init
-    #   inputs:
-    #     provider: 'azurerm'
-    #     command: 'init'
-    #     backendServiceArm: 'UdacityQARelease'
-    #     backendAzureRmResourceGroupName: 'uda-vault-rg'
-    #     backendAzureRmStorageAccountName: 'udaterrasa'
-    #     backendAzureRmContainerName: 'terracontainer'
-    #     backendAzureRmKey: 'uda.terraform.tfstate'
-    #     workingDirectory: 'terraform'
-    # - task: TerraformTaskV1@0
-    #   displayName: Terraform validate and apply
-    #   inputs:
-    #     provider: 'azurerm'
-    #     command: 'apply'
-    #     commandOptions: '-var-file="$(Agent.TempDirectory)/terraform.tfvars'
-    #     environmentServiceNameAzureRM: 'UdacityQARelease'
-    #     workingDirectory: 'terraform'
+    - task: TerraformInstaller@0
+      displayName: Install Terraform
+      inputs:
+        terraformVersion: '0.13.2'
+    - task: DownloadSecureFile@1
+      displayName: 'Download secure file $(terraform.tfvars)'
+      inputs:
+        secureFile: 'terraform.tfvars'
+    - task: TerraformTaskV1@0
+      displayName: Terraform Init
+      inputs:
+        provider: 'azurerm'
+        command: 'init'
+        backendServiceArm: 'UdacityQARelease'
+        backendAzureRmResourceGroupName: 'uda-vault-rg'
+        backendAzureRmStorageAccountName: 'udaterrasa'
+        backendAzureRmContainerName: 'terracontainer'
+        backendAzureRmKey: 'uda.terraform.tfstate'
+        workingDirectory: 'terraform'
+    - task: TerraformTaskV1@0
+      displayName: Terraform validate and apply
+      inputs:
+        provider: 'azurerm'
+        command: 'apply'
+        commandOptions: '-var-file="$(Agent.TempDirectory)/terraform.tfvars'
+        environmentServiceNameAzureRM: 'UdacityQARelease'
+        workingDirectory: 'terraform'
     - task: ArchiveFiles@2
       displayName: 'Archive FakeRestAPI'
       continueOnError: true
@@ -133,65 +132,12 @@ stages:
                 sudo chown root:root /usr/local/bin/chromedriver
                 sudo chmod 0755 /usr/local/bin/chromedriver
 
-          #       export PATH=$PATH:/usr/bin/chromium-browser
-          #       echo $PATH
-          #       sudo echo "PATH=$PATH:/var/test" >> ~/.bashrc
-          #       chmod 777 $(Agent.TempDirectory)/login.py
-          #       python3 $(Agent.TempDirectory)/login.py
-          # # - task: CmdLine@2
-          #   condition: succeededOrFailed()
-          #   displayName: List directory
-          #   inputs:
-          #     script: |
-          #       pwd
-          #       ls -al
-          #       pwd
-          #       cd ~
-          #       pwd
-          #       ls -al
-          #       cd azagent/_work/1/s
-          #       pwd
-          #       cd ..
-          #       pwd
-          #       ls -al
-          #       ls -al drop-fakerestapi
-          #       cd ..
-          #       cd _temp
-          #       pwd
-          #       ls -al
-          #       which chromium-browser
-          #       whereis chromium-browser
-          #       echo $PATH
-          # - task: Bash@3
-          #   inputs:
-          #     targetType: 'inline'
-          #     script: 'python3 automatedtesting/selenium/login.py'
-          #     workingDirectory: '$(System.DefaultWorkingDirectory)'
-            #  WorkingDirectory : $(System.DefaultWorkingDirectory)
           - task: CmdLine@2
             condition: succeededOrFailed()
             displayName: Run Selenium Tests
             inputs:
               script: |
                 python3 $(Agent.TempDirectory)/login.py
-            # export PATH=$PATH:/usr/bin/chromium-browser
-            # echo $PATH
-            #python3 $(Agent.TempDirectory)/login.py
-
-  - job: Jmeter
-    pool:
-      vmImage: 'ubuntu-latest'
-    steps:
-    - task: JMeterInstaller@0
-      displayName: 'Install JMeter 5.2.1'
-      inputs:
-        jmeterVersion: '5.2.1'
-    - task: Bash@3
-      displayName: 'Run Jmeter test'
-      inputs:
-        targetType: 'inline'
-        script: |
-          jmeter -n -t automatedtesting/jmeter/Starter.jmx -Jresdir=automatedtesting/jmeter/NumberOfUsers.csv
 
   - deployment: FakeRestAPI
     pool:
@@ -209,5 +155,25 @@ stages:
               appType: webApp
               package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
 
+  - job: Jmeter
+    dependsOn: FakeRestAPI
+    pool:
+        vmImage: 'ubuntu-latest'
+    steps:
+    - task: JMeterInstaller@0
+      displayName: 'Install JMeter 5.2.1'
+      inputs:
+        jmeterVersion: '5.2.1'
+    - task: Bash@3
+      displayName: 'Run Jmeter Stress test'
+      inputs:
+        targetType: 'inline'
+        script: |
+          jmeter -n -t automatedtesting/jmeter/Starter.jmx -Jresdir=automatedtesting/jmeter/NumberOfUsers.csv -JStressTestUsers=30 -JEnduranceTestUsers=0
+    - task: Bash@3
+      displayName: 'Run Jmeter Endurance test'
+      inputs:
+        targetType: 'inline'
+        script: |
+          jmeter -n -t automatedtesting/jmeter/Starter.jmx -Jresdir=automatedtesting/jmeter/NumberOfUsers.csv -JStressTestUsers=0 -JEnduranceTestUsers=30
 
-              
