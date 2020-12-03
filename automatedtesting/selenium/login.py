@@ -125,8 +125,8 @@ def is_selector_exist(selector, driver = None, webelement = None):
     else:
         return True
 
+login('performance_glitch_user', 'secret_sauce')
 login('standard_user', 'secret_sauce')
 login('locked_out_user', 'secret_sauce')
 login('problem_user', 'secret_sauce')
-login('performance_glitch_user', 'secret_sauce')
 
