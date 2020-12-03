@@ -101,7 +101,7 @@ def login (user, password):
             print("No more item in the cart")
             logging.info("No more item in the cart")
     
-        time.sleep(1)
+        #time.sleep(1)
 
     #Confirm cart is empty
     logging.info("### Confirming cart is empty... ###")
