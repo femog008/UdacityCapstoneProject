@@ -112,6 +112,8 @@ def login (user, password):
         print("### TEST FAILED- Unable to remove some items from the cart for user: " + user)
         logging.warning("### TEST FAILED- Unable to remove some items from the cart for user: " + user)
 
+    driver.close()
+
 def is_selector_exist(selector, driver = None, webelement = None):
     if driver != None:
         counter_element = driver.find_elements_by_css_selector(selector)
