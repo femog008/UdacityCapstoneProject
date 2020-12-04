@@ -200,6 +200,7 @@ stages:
           cd 1/s
           pwd
           ls -al
+          cat jmeter.log
     - task: Bash@3
       displayName: 'Run Jmeter Stress test'
       inputs:
