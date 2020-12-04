@@ -193,29 +193,19 @@ stages:
           cd ~
           pwd
           ls -al
-          cd azagent/_work/1/s
-          pwd
-          cd ..
+          cd _work/_temp
           pwd
           ls -al
-          ls -al drop-fakerestapi
-          cd ..
-          cd _temp
-          pwd
-          ls -al
-          which chromium-browser
-          whereis chromium-browser
-          echo $PATH
     - task: Bash@3
       displayName: 'Run Jmeter Stress test'
       inputs:
         targetType: 'inline'
         script: |
-          jmeter -n -t automatedtesting/jmeter/Starter.jmx -Jresdir=automatedtesting/jmeter/NumberOfUsers.csv -JStressTestUsers=30 -JEnduranceTestUsers=0
+          jmeter -n -t Starter.jmx -Jresdir=NumberOfUsers.csv -JStressTestUsers=30 -JEnduranceTestUsers=0
     - task: Bash@3
       displayName: 'Run Jmeter Endurance test'
       inputs:
         targetType: 'inline'
         script: |
-          jmeter -n -t automatedtesting/jmeter/Starter.jmx -Jresdir=automatedtesting/jmeter/NumberOfUsers.csv -JStressTestUsers=0 -JEnduranceTestUsers=30
+          jmeter -n -t Starter.jmx -Jresdir=NumberOfUsers.csv -JStressTestUsers=0 -JEnduranceTestUsers=30
 
