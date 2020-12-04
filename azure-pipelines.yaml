@@ -84,6 +84,15 @@ stages:
       displayName: 'Publish python scripts for later use'
       artifact: dropScripts
 
+    - task: CopyFiles@2
+      displayName: 'Copy jmeter files for later use in the pipeline'
+      inputs:
+        contents: 'automatedtesting/jmeter/*.*'
+        targetFolder: '$(Build.StagingDirectory)'
+    - publish: '$(Build.ArtifactStagingDirectory)/automatedtesting/jmeter'
+      displayName: 'Publish jmeter files for later use'
+      artifact: jmeterdropfiles
+
 - stage: Deploy
   dependsOn: Build
   jobs:
@@ -164,6 +173,15 @@ stages:
       displayName: 'Install JMeter 5.2.1'
       inputs:
         jmeterVersion: '5.2.1'
+    - download: current
+      artifact: jmeterdropfiles
+    - task: CopyFiles@2
+      displayName: Copy jmeter files to Temp folder
+      inputs:
+        SourceFolder: '$(Pipeline.Workspace)/jmeterdropfiles'
+        Contents: '**'
+        TargetFolder: '$(Agent.TempDirectory)'
+        OverWrite: true
     - task: Bash@3
       displayName: 'Run Jmeter Stress test'
       inputs:
