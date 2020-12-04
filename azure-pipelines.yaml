@@ -207,9 +207,29 @@ stages:
         targetType: 'inline'
         script: |
           jmeter -n -t automatedtesting/jmeter/Starter.jmx -Jresdir=automatedtesting/jmeter/NumberOfUsers.csv -JStressTestUsers=30 -JEnduranceTestUsers=0
+    - task: CmdLine@2
+      condition: succeededOrFailed()
+      displayName: List directory
+      inputs:
+        script: |
+          pwd
+          ls -al
+          pwd
+          cd ~
+          pwd
+          ls -al
+          cd work/_temp
+          pwd
+          ls -al
+          cd ..
+          cd 1/s
+          pwd
+          ls -al
+          cat jmeter.log
     - task: Bash@3
       displayName: 'Run Jmeter Endurance test'
       inputs:
         targetType: 'inline'
         script: |
-          jmeter -n -t $(Pipeline.Workspace)/automatedtesting/jmeter/Starter.jmx -Jresdir=$(Pipeline.Workspace)/automatedtesting/jmeter/NumberOfUsers.csv -JStressTestUsers=0 -JEnduranceTestUsers=30
+          jmeter -n -t automatedtesting/jmeter/Starter.jmx -Jresdir=automatedtesting/jmeter/NumberOfUsers.csv -JStressTestUsers=0 -JEnduranceTestUsers=30
+        workingDirectory: $(Build.SourcesDirectory)
