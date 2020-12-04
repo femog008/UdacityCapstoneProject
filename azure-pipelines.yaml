@@ -165,7 +165,7 @@ stages:
   #             package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
 
   - job: Jmeter
-    dependsOn: FakeRestAPI
+    #dependsOn: FakeRestAPI
     pool:
         vmImage: 'ubuntu-latest'
     steps:
