@@ -175,13 +175,13 @@ stages:
         jmeterVersion: '5.2.1'
     - download: current
       artifact: jmeterdropfiles
-    - task: CopyFiles@2
-      displayName: Copy jmeter files to Temp folder
-      inputs:
-        SourceFolder: '$(Pipeline.Workspace)/jmeterdropfiles'
-        Contents: '**'
-        TargetFolder: '$(Agent.TempDirectory)'
-        OverWrite: true
+    # - task: CopyFiles@2
+    #   displayName: Copy jmeter files to Temp folder
+    #   inputs:
+    #     SourceFolder: '$(Pipeline.Workspace)/jmeterdropfiles'
+    #     Contents: '**'
+    #     TargetFolder: '$(Agent.TempDirectory)'
+    #     OverWrite: true
     - task: CmdLine@2
       condition: succeededOrFailed()
       displayName: List directory
@@ -205,11 +205,11 @@ stages:
       inputs:
         targetType: 'inline'
         script: |
-          jmeter -n -t Starter.jmx -Jresdir=NumberOfUsers.csv -JStressTestUsers=30 -JEnduranceTestUsers=0
+          jmeter -n -t automatedtesting/jmeter/Starter.jmx -Jresdir=automatedtesting/jmeter/NumberOfUsers.csv -JStressTestUsers=30 -JEnduranceTestUsers=0
     - task: Bash@3
       displayName: 'Run Jmeter Endurance test'
       inputs:
         targetType: 'inline'
         script: |
-          jmeter -n -t Starter.jmx -Jresdir=NumberOfUsers.csv -JStressTestUsers=0 -JEnduranceTestUsers=30
-
+          jmeter -n -t automatedtesting/jmeter/Starter.jmx -Jresdir=automatedtesting/jmeter/NumberOfUsers.csv -JStressTestUsers=0 -JEnduranceTestUsers=30
+        WorkingDirectory : $(Pipeline.Workspace)
