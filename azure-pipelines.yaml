@@ -193,7 +193,11 @@ stages:
           cd ~
           pwd
           ls -al
-          cd _work/_temp
+          cd work/_temp
+          pwd
+          ls -al
+          cd ..
+          cd 1/s
           pwd
           ls -al
     - task: Bash@3
