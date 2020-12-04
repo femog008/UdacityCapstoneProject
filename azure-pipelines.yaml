@@ -1,7 +1,7 @@
 name: Azure Pipelines
 variables:
   python.version: '3.7.6'
-  # System.Debug: true
+  System.Debug: true
 stages:
 - stage: Build
   jobs:
@@ -36,44 +36,44 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     steps:
-    - task: TerraformInstaller@0
-      displayName: Install Terraform
-      inputs:
-        terraformVersion: '0.13.2'
-    - task: DownloadSecureFile@1
-      displayName: 'Download secure file $(terraform.tfvars)'
-      inputs:
-        secureFile: 'terraform.tfvars'
-    - task: TerraformTaskV1@0
-      displayName: Terraform Init
-      inputs:
-        provider: 'azurerm'
-        command: 'init'
-        backendServiceArm: 'UdacityQARelease'
-        backendAzureRmResourceGroupName: 'uda-vault-rg'
-        backendAzureRmStorageAccountName: 'udaterrasa'
-        backendAzureRmContainerName: 'terracontainer'
-        backendAzureRmKey: 'uda.terraform.tfstate'
-        workingDirectory: 'terraform'
-    - task: TerraformTaskV1@0
-      displayName: Terraform validate and apply
-      inputs:
-        provider: 'azurerm'
-        command: 'apply'
-        commandOptions: '-var-file="$(Agent.TempDirectory)/terraform.tfvars'
-        environmentServiceNameAzureRM: 'UdacityQARelease'
-        workingDirectory: 'terraform'
-    - task: ArchiveFiles@2
-      displayName: 'Archive FakeRestAPI'
-      continueOnError: true
-      inputs:
-        rootFolderOrFile: 'automatedtesting/jmeter/fakerestapi'
-        includeRootFolder: false
-        archiveType: 'zip'
-        archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip'
-    - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip
-      displayName: 'Upload Package'
-      artifact: drop-fakerestapi
+    # - task: TerraformInstaller@0
+    #   displayName: Install Terraform
+    #   inputs:
+    #     terraformVersion: '0.13.2'
+    # - task: DownloadSecureFile@1
+    #   displayName: 'Download secure file $(terraform.tfvars)'
+    #   inputs:
+    #     secureFile: 'terraform.tfvars'
+    # - task: TerraformTaskV1@0
+    #   displayName: Terraform Init
+    #   inputs:
+    #     provider: 'azurerm'
+    #     command: 'init'
+    #     backendServiceArm: 'UdacityQARelease'
+    #     backendAzureRmResourceGroupName: 'uda-vault-rg'
+    #     backendAzureRmStorageAccountName: 'udaterrasa'
+    #     backendAzureRmContainerName: 'terracontainer'
+    #     backendAzureRmKey: 'uda.terraform.tfstate'
+    #     workingDirectory: 'terraform'
+    # - task: TerraformTaskV1@0
+    #   displayName: Terraform validate and apply
+    #   inputs:
+    #     provider: 'azurerm'
+    #     command: 'apply'
+    #     commandOptions: '-var-file="$(Agent.TempDirectory)/terraform.tfvars'
+    #     environmentServiceNameAzureRM: 'UdacityQARelease'
+    #     workingDirectory: 'terraform'
+    # - task: ArchiveFiles@2
+    #   displayName: 'Archive FakeRestAPI'
+    #   continueOnError: true
+    #   inputs:
+    #     rootFolderOrFile: 'automatedtesting/jmeter/fakerestapi'
+    #     includeRootFolder: false
+    #     archiveType: 'zip'
+    #     archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip'
+    # - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip
+    #   displayName: 'Upload Package'
+    #   artifact: drop-fakerestapi
 
     - task: CopyFiles@2
       displayName: 'Copy python scripts for later use in the pipeline'
@@ -148,21 +148,21 @@ stages:
               script: |
                 python3 $(Agent.TempDirectory)/login.py
 
-  - deployment: FakeRestAPI
-    pool:
-      vmImage: 'Ubuntu-16.04'
-    environment: 'TEST'
-    strategy:
-      runOnce:
-        deploy:
-          steps:
-          - task: AzureWebApp@1
-            displayName: 'Deploy Azure Web App'
-            inputs:
-              azureSubscription: 'UdacityQARelease'
-              appName: 'udacity-capstone-AppService'
-              appType: webApp
-              package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
+  # - deployment: FakeRestAPI
+  #   pool:
+  #     vmImage: 'Ubuntu-16.04'
+  #   environment: 'TEST'
+  #   strategy:
+  #     runOnce:
+  #       deploy:
+  #         steps:
+  #         - task: AzureWebApp@1
+  #           displayName: 'Deploy Azure Web App'
+  #           inputs:
+  #             azureSubscription: 'UdacityQARelease'
+  #             appName: 'udacity-capstone-AppService'
+  #             appType: webApp
+  #             package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
 
   - job: Jmeter
     dependsOn: FakeRestAPI
@@ -182,7 +182,30 @@ stages:
         Contents: '**'
         TargetFolder: '$(Agent.TempDirectory)'
         OverWrite: true
-    - task: Bash@3
+    - task: CmdLine@2
+      condition: succeededOrFailed()
+      displayName: List directory
+      inputs:
+        script: |
+          pwd
+          ls -al
+          pwd
+          cd ~
+          pwd
+          ls -al
+          cd azagent/_work/1/s
+          pwd
+          cd ..
+          pwd
+          ls -al
+          ls -al drop-fakerestapi
+          cd ..
+          cd _temp
+          pwd
+          ls -al
+          which chromium-browser
+          whereis chromium-browser
+          echo $PATH    - task: Bash@3
       displayName: 'Run Jmeter Stress test'
       inputs:
         targetType: 'inline'
