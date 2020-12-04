@@ -164,10 +164,10 @@ stages:
       inputs:
         targetType: 'inline'
         script: |
-          jmeter -n -t automatedtesting/jmeter/Starter.jmx -Jresdir=automatedtesting/jmeter/NumberOfUsers.csv -JStressTestUsers=30 -JEnduranceTestUsers=0
+          jmeter -n -t automatedtesting/jmeter/Starter.jmx -JCsvPath=automatedtesting/jmeter/NumberOfUsers.csv -JStressTestUsers=30 -JEnduranceTestUsers=0
     - task: Bash@3
       displayName: 'Run Jmeter Endurance test'
       inputs:
         targetType: 'inline'
         script: |
-          jmeter -n -t automatedtesting/jmeter/Starter.jmx -Jresdir=automatedtesting/jmeter/NumberOfUsers.csv -JStressTestUsers=0 -JEnduranceTestUsers=30
+          jmeter -n -t automatedtesting/jmeter/Starter.jmx -JCsvPath=automatedtesting/jmeter/NumberOfUsers.csv -JStressTestUsers=0 -JEnduranceTestUsers=30
