@@ -36,44 +36,44 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     steps:
-    # - task: TerraformInstaller@0
-    #   displayName: Install Terraform
-    #   inputs:
-    #     terraformVersion: '0.13.2'
-    # - task: DownloadSecureFile@1
-    #   displayName: 'Download secure file $(terraform.tfvars)'
-    #   inputs:
-    #     secureFile: 'terraform.tfvars'
-    # - task: TerraformTaskV1@0
-    #   displayName: Terraform Init
-    #   inputs:
-    #     provider: 'azurerm'
-    #     command: 'init'
-    #     backendServiceArm: 'UdacityQARelease'
-    #     backendAzureRmResourceGroupName: 'uda-vault-rg'
-    #     backendAzureRmStorageAccountName: 'udaterrasa'
-    #     backendAzureRmContainerName: 'terracontainer'
-    #     backendAzureRmKey: 'uda.terraform.tfstate'
-    #     workingDirectory: 'terraform'
-    # - task: TerraformTaskV1@0
-    #   displayName: Terraform validate and apply
-    #   inputs:
-    #     provider: 'azurerm'
-    #     command: 'apply'
-    #     commandOptions: '-var-file="$(Agent.TempDirectory)/terraform.tfvars'
-    #     environmentServiceNameAzureRM: 'UdacityQARelease'
-    #     workingDirectory: 'terraform'
-    # - task: ArchiveFiles@2
-    #   displayName: 'Archive FakeRestAPI'
-    #   continueOnError: true
-    #   inputs:
-    #     rootFolderOrFile: 'automatedtesting/jmeter/fakerestapi'
-    #     includeRootFolder: false
-    #     archiveType: 'zip'
-    #     archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip'
-    # - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip
-    #   displayName: 'Upload Package'
-    #   artifact: drop-fakerestapi
+    - task: TerraformInstaller@0
+      displayName: Install Terraform
+      inputs:
+        terraformVersion: '0.13.2'
+    - task: DownloadSecureFile@1
+      displayName: 'Download secure file $(terraform.tfvars)'
+      inputs:
+        secureFile: 'terraform.tfvars'
+    - task: TerraformTaskV1@0
+      displayName: Terraform Init
+      inputs:
+        provider: 'azurerm'
+        command: 'init'
+        backendServiceArm: 'UdacityQARelease'
+        backendAzureRmResourceGroupName: 'uda-vault-rg'
+        backendAzureRmStorageAccountName: 'udaterrasa'
+        backendAzureRmContainerName: 'terracontainer'
+        backendAzureRmKey: 'uda.terraform.tfstate'
+        workingDirectory: 'terraform'
+    - task: TerraformTaskV1@0
+      displayName: Terraform validate and apply
+      inputs:
+        provider: 'azurerm'
+        command: 'apply'
+        commandOptions: '-var-file="$(Agent.TempDirectory)/terraform.tfvars'
+        environmentServiceNameAzureRM: 'UdacityQARelease'
+        workingDirectory: 'terraform'
+    - task: ArchiveFiles@2
+      displayName: 'Archive FakeRestAPI'
+      continueOnError: true
+      inputs:
+        rootFolderOrFile: 'automatedtesting/jmeter/fakerestapi'
+        includeRootFolder: false
+        archiveType: 'zip'
+        archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip'
+    - publish: $(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip
+      displayName: 'Upload Package'
+      artifact: drop-fakerestapi
 
     - task: CopyFiles@2
       displayName: 'Copy python scripts for later use in the pipeline'
@@ -83,15 +83,6 @@ stages:
     - publish: '$(Build.ArtifactStagingDirectory)/automatedtesting/selenium'
       displayName: 'Publish python scripts for later use'
       artifact: dropScripts
-
-    - task: CopyFiles@2
-      displayName: 'Copy jmeter files for later use in the pipeline'
-      inputs:
-        contents: 'automatedtesting/jmeter/*.*'
-        targetFolder: '$(Build.StagingDirectory)'
-    - publish: '$(Build.ArtifactStagingDirectory)/automatedtesting/jmeter'
-      displayName: 'Publish jmeter files for later use'
-      artifact: jmeterdropfiles
 
 - stage: Deploy
   dependsOn: Build
@@ -123,7 +114,6 @@ stages:
                 #! /bin/bash
                 
                 CHROME_DRIVER_VERSION=`curl -sS https://chromedriver.storage.googleapis.com/LATEST_RELEASE`
-
                 sudo apt-get upgrade -y
                 sudo apt-get install python3-pip -y
                 sudo apt-get install unzip -y
@@ -131,41 +121,37 @@ stages:
                 sudo apt-get install unzip
                 pip3 install webdriver-manager
                 pip3 install selenium
-
                 echo CHROME_DRIVER_VERSION
-
                 wget -N https://chromedriver.storage.googleapis.com/$CHROME_DRIVER_VERSION/chromedriver_linux64.zip -P ~/
                 unzip ~/chromedriver_linux64.zip -d ~/
                 rm ~/chromedriver_linux64.zip
                 sudo mv -f ~/chromedriver /usr/local/bin/chromedriver
                 sudo chown root:root /usr/local/bin/chromedriver
                 sudo chmod 0755 /usr/local/bin/chromedriver
-
           - task: CmdLine@2
             condition: succeededOrFailed()
             displayName: Run Selenium Tests
             inputs:
               script: |
                 python3 $(Agent.TempDirectory)/login.py
-
-  # - deployment: FakeRestAPI
-  #   pool:
-  #     vmImage: 'Ubuntu-16.04'
-  #   environment: 'TEST'
-  #   strategy:
-  #     runOnce:
-  #       deploy:
-  #         steps:
-  #         - task: AzureWebApp@1
-  #           displayName: 'Deploy Azure Web App'
-  #           inputs:
-  #             azureSubscription: 'UdacityQARelease'
-  #             appName: 'udacity-capstone-AppService'
-  #             appType: webApp
-  #             package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
+  - deployment: FakeRestAPI
+    pool:
+      vmImage: 'Ubuntu-16.04'
+    environment: 'TEST'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: AzureWebApp@1
+            displayName: 'Deploy Azure Web App'
+            inputs:
+              azureSubscription: 'UdacityQARelease'
+              appName: 'udacity-capstone-AppService'
+              appType: webApp
+              package: $(Pipeline.Workspace)/drop-fakerestapi/$(Build.BuildId)-fakerestapi.zip
 
   - job: Jmeter
-    #dependsOn: FakeRestAPI
+    dependsOn: FakeRestAPI
     pool:
         vmImage: 'ubuntu-latest'
     steps:
@@ -173,63 +159,15 @@ stages:
       displayName: 'Install JMeter 5.2.1'
       inputs:
         jmeterVersion: '5.2.1'
-    - download: current
-      artifact: jmeterdropfiles
-    # - task: CopyFiles@2
-    #   displayName: Copy jmeter files to Temp folder
-    #   inputs:
-    #     SourceFolder: '$(Pipeline.Workspace)/jmeterdropfiles'
-    #     Contents: '**'
-    #     TargetFolder: '$(Agent.TempDirectory)'
-    #     OverWrite: true
-    - task: CmdLine@2
-      condition: succeededOrFailed()
-      displayName: List directory
-      inputs:
-        script: |
-          pwd
-          ls -al
-          pwd
-          cd ~
-          pwd
-          ls -al
-          cd work/_temp
-          pwd
-          ls -al
-          cd ..
-          cd 1/s
-          pwd
-          ls -al
-          cat jmeter.log
     - task: Bash@3
       displayName: 'Run Jmeter Stress test'
       inputs:
         targetType: 'inline'
         script: |
           jmeter -n -t automatedtesting/jmeter/Starter.jmx -Jresdir=automatedtesting/jmeter/NumberOfUsers.csv -JStressTestUsers=30 -JEnduranceTestUsers=0
-    - task: CmdLine@2
-      condition: succeededOrFailed()
-      displayName: List directory
-      inputs:
-        script: |
-          pwd
-          ls -al
-          pwd
-          cd ~
-          pwd
-          ls -al
-          cd work/_temp
-          pwd
-          ls -al
-          cd ..
-          cd 1/s
-          pwd
-          ls -al
-          cat jmeter.log
     - task: Bash@3
       displayName: 'Run Jmeter Endurance test'
       inputs:
         targetType: 'inline'
         script: |
           jmeter -n -t automatedtesting/jmeter/Starter.jmx -Jresdir=automatedtesting/jmeter/NumberOfUsers.csv -JStressTestUsers=0 -JEnduranceTestUsers=30
-        workingDirectory: $(Build.SourcesDirectory)
