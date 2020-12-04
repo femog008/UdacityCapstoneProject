@@ -212,5 +212,4 @@ stages:
       inputs:
         targetType: 'inline'
         script: |
-          jmeter -n -t automatedtesting/jmeter/Starter.jmx -Jresdir=automatedtesting/jmeter/NumberOfUsers.csv -JStressTestUsers=0 -JEnduranceTestUsers=30
-        WorkingDirectory : $(Pipeline.Workspace)
+          jmeter -n -t $(Pipeline.Workspace)/automatedtesting/jmeter/Starter.jmx -Jresdir=$(Pipeline.Workspace)/automatedtesting/jmeter/NumberOfUsers.csv -JStressTestUsers=0 -JEnduranceTestUsers=30
