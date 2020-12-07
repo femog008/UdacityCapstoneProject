@@ -20,54 +20,54 @@ Imaged Referenced from Udacity
 
 * Pipeline Build Result Page
 
-* ![Pipeline Build Result Page](images/PipelineBuildResultPage.jpg?raw=true "Pipeline Build Result Page")
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![Pipeline Build Result Page](images/PipelineBuildResultPage.jpg?raw=true "Pipeline Build Result Page")
 
 * Terraform Init Azure Pipeline
 
-![Terraform Init Azure Pipeline](images/TerraformInitAzurePipeline.jpg?raw=true "Terraform Init Azure Pipeline")
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![Terraform Init Azure Pipeline](images/TerraformInitAzurePipeline.jpg?raw=true "Terraform Init Azure Pipeline")
 
 * Terraform Validate And Apply Azure Pipeline
 
-* ![Terraform Validate And Apply Azure Pipeline](images/TerraformValidateAndApplyAzurePipeline.jpg?raw=true "Terraform Validate And Apply Azure Pipeline")
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![Terraform Validate And Apply Azure Pipeline](images/TerraformValidateAndApplyAzurePipeline.jpg?raw=true "Terraform Validate And Apply Azure Pipeline")
 
 * Postman Newman Command Pipeline Step
 
-* ![Postman Newman Command Pipeline Step](images/PostmanNewmanCommandPipelineStep.jpg?raw=true "Postman Newman Command Pipeline Step")
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![Postman Newman Command Pipeline Step](images/PostmanNewmanCommandPipelineStep.jpg?raw=true "Postman Newman Command Pipeline Step")
 
 * Postman Summary Page
 
-* ![Postman Summary Page](images/PostmanSummaryPage.jpg?raw=true "Postman Summary Page")
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![Postman Summary Page](images/PostmanSummaryPage.jpg?raw=true "Postman Summary Page")
 
 * Postman Test Result Page
 
-* ![Postman Test Result Page](images/PostmanTestResultPage.jpg?raw=true "Postman Test Result Page")
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![Postman Test Result Page](images/PostmanTestResultPage.jpg?raw=true "Postman Test Result Page")
 
 * Jmeter Endurance Test in Azure Pipeline
 
-* ![Jmeter Endurance Test in Azure Pipeline](images/JmeterEnduranceTestAzurePipeline.jpg?raw=true "Jmeter Endurance Test in Azure Pipeline")
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![Jmeter Endurance Test in Azure Pipeline](images/JmeterEnduranceTestAzurePipeline.jpg?raw=true "Jmeter Endurance Test in Azure Pipeline")
 
 * Jmeter Stress Test in Azure Pipeline
 
-* ![Jmeter Stress Test in Azure Pipeline](images/JmeterStressTestAzurePipeline.jpg?raw=true "Jmeter Stress Test in Azure Pipeline")
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![Jmeter Stress Test in Azure Pipeline](images/JmeterStressTestAzurePipeline.jpg?raw=true "Jmeter Stress Test in Azure Pipeline")
 
 * Selenium Test In Pipeline
 
-* ![Selenium Test In Pipeline](images/SeleniumTestInPipeline.jpg?raw=true "Selenium Test In Pipeline")
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![Selenium Test In Pipeline](images/SeleniumTestInPipeline.jpg?raw=true "Selenium Test In Pipeline")
 
 * Selenium Test Log In Azure Analytics
 
-* ![Selenium Test Log In Azure Analytics](images/SeleniumTestLogInAzureAnalytics.jpg?raw=true "Selenium Test Log In Azure Analytic")
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![Selenium Test Log In Azure Analytics](images/SeleniumTestLogInAzureAnalytics.jpg?raw=true "Selenium Test Log In Azure Analytic")
 
 * Alert Rule Config Page
 
-* ![Alert Rule Config Page](images/AlertRuleConfigPage.jpg?raw=true "Alert Rule Config Page")
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![Alert Rule Config Page](images/AlertRuleConfigPage.jpg?raw=true "Alert Rule Config Page")
 
 * CPU Utilization Graph that Triggered Alert
 
-* ![CPU Utilization Graph that Triggered Alert](images/CPUUtilizationGraph.jpg?raw=true "CPU Utilization Graph")
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![CPU Utilization Graph that Triggered Alert](images/CPUUtilizationGraph.jpg?raw=true "CPU Utilization Graph")
 
 * Email Notification From Azure Alert
 
-* ![Email Notification From Azure Alert](images/EmailAlertFromAzureAlert.jpg?raw=true "Email Notification From Azure Alert")
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; ![Email Notification From Azure Alert](images/EmailAlertFromAzureAlert.jpg?raw=true "Email Notification From Azure Alert")
 
 
