@@ -58,6 +58,6 @@ Imaged Referenced from Udacity
 ![Email Notification From Azure Alert](images/EmailAlertFromAzureAlert.jpg?raw=true "Email Notification From Azure Alert")
 
 * Sample Email Notification From Azure Devops Success Build
-![Email Notification From Azure Alert](images/EmailAlertFromAzureDevopsSuccessBuild.jpg?raw=true "Email Notification From Azure Alert")
+![Sample Email Notification From Azure Devops Success Build](images/EmailAlertFromAzureDevopsSuccessBuild.jpg?raw=true "Sample Email Notification From Azure Devops Success Build")
 
 
