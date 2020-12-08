@@ -16,7 +16,7 @@ This project is a demonstration of all the skills learnt at the Udacity Nanodegr
 ![Project Arquitecture Design](images/project_overview.png?raw=true "CD/CI Arquitecture")
 Imaged Referenced from Udacity
 
-`Some Results page for the deployment:`
+##Some Results page for the deployment:
 
 * Pipeline Build Result Page
 ![Pipeline Build Result Page](images/PipelineBuildResultPage.jpg?raw=true "Pipeline Build Result Page")
@@ -56,5 +56,8 @@ Imaged Referenced from Udacity
 
 * Email Notification From Azure Alert
 ![Email Notification From Azure Alert](images/EmailAlertFromAzureAlert.jpg?raw=true "Email Notification From Azure Alert")
+
+* Sample Email Notification From Azure Devops Success Build
+![Email Notification From Azure Alert](images/EmailAlertFromAzureDevopsSuccessBuild.jpg?raw=true "Email Notification From Azure Alert")
 
 
