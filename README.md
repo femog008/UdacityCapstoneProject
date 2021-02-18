@@ -14,7 +14,8 @@ This project is a demonstration of all the skills learnt at the Udacity Nanodegr
 * Monitoring and Alerting with Azure Monitor
 
 ![Project Arquitecture Design](images/project_overview.png?raw=true "CD/CI Arquitecture")
-Imaged Referenced from Udacity
+
+Image Referenced from Udacity
 
 ##Some Results page for the deployment:
 
